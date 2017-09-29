@@ -1,8 +1,24 @@
-.mat-card img{
-  cursor: pointer;
-}
-.comics-fav-indicator {
-  .mat-icon {
-    color: #F44336;
+.mat-card {
+
+  height: 480px;
+
+  img {
+    cursor: pointer;
+  }
+
+  .mat-card-actions {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+  }
+
+  .mat-card-image {
+    max-height: 290px;
+  }
+
+  .comics-fav-indicator {
+    .mat-icon {
+      color: #F44336;
+    }
   }
 }

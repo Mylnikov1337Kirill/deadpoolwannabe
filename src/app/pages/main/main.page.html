@@ -1,6 +1,9 @@
 <div>
-  <div class="comics-list row">
-    <div class="col-lg-3 col-md-6 col-xs-12" *ngFor="let comics of comicsList">
+  <div class="loader-container" *ngIf="isLoading">
+    <md-spinner></md-spinner>
+  </div>
+  <div class="comics-list row" *ngIf="!isLoading">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12" *ngFor="let comics of comicsList">
       <app-comics-card [data]="comics">
       </app-comics-card>
     </div>

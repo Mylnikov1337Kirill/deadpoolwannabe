@@ -1,5 +1,9 @@
-:host{
+@import '../../../assets/variables';
 
+:host{
+  .mat-toolbar {
+    background: $main-color;
+  }
   .logo {
     font-family: Saucer BB Font;
     font-size: 36px;

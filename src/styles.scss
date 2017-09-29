@@ -1,7 +1,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~flexboxgrid/css/flexboxgrid.css";
 @import url(//fonts.googleapis.com/icon?family=Material+Icons);
-
+@import './assets/variables';
 @font-face {
   font-family: Saucer BB Font;
   src: url('./assets/saucer-bb.regular.ttf');
@@ -11,4 +11,8 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.mat-progress-spinner path {
+  stroke: $main-color;
 }

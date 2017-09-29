@@ -7,7 +7,8 @@ import {
   MdButtonModule,
   MdSelectModule,
   MdIconModule,
-  MatCardModule
+  MatCardModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 import {
@@ -53,6 +54,7 @@ import 'hammerjs';
     MdButtonModule,
     MdSelectModule,
     MdIconModule,
+    MatProgressSpinnerModule,
     MatCardModule
   ],
   providers: [
