@@ -1,0 +1,13 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url(//fonts.googleapis.com/icon?family=Material+Icons);
+
+@font-face {
+  font-family: Saucer BB Font;
+  src: url('./assets/saucer-bb.regular.ttf');
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
