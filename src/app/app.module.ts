@@ -5,12 +5,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MdToolbarModule,
   MdButtonModule,
-  MdSelectModule
+  MdSelectModule,
+  MdIconModule,
+  MatCardModule
 } from '@angular/material';
 
 import {
   LayoutComponent,
-  HeaderComponent
+  HeaderComponent,
+  ComicsCardComponent
 } from './components';
 
 import {
@@ -36,6 +39,7 @@ import 'hammerjs';
     AppComponent,
     LayoutComponent,
     HeaderComponent,
+    ComicsCardComponent,
     MainPageComponent,
     FavouritesPageComponent,
     NotFoundPageComponent
@@ -47,7 +51,9 @@ import 'hammerjs';
     AppRoutingModule,
     MdToolbarModule,
     MdButtonModule,
-    MdSelectModule
+    MdSelectModule,
+    MdIconModule,
+    MatCardModule
   ],
   providers: [
     AuthService,
