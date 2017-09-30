@@ -1,4 +1,4 @@
-<app-comics-details [data]="comicsDetails"></app-comics-details>
+<app-comics-details [comics]="comicsDetails" [character]="characterDetails" (characterPicked)="characterDetailsView($event)"></app-comics-details>
 <div class="main-page-wrapper col-lg-6 col-md-6 col-sm-8 col-xs-12 col-lg-offset-3 col-sm-offset-2 col-xs-offset-0">
   <div class="loader-container" *ngIf="isLoading">
     <md-spinner></md-spinner>
@@ -6,7 +6,7 @@
 
   <div class="row comics-list-wrapper" *ngIf="!isLoading">
     <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-      <app-comics-list [list]="comicsList" (comicsView)="detailsView($event)"></app-comics-list>
+      <app-comics-list [list]="comicsList" (comicsView)="comicsDetailsView($event)"></app-comics-list>
     </div>
     <div class="filters col-lg-4 col-md-4 col-sm-0 col-xs-0 col-lg-offset-1 col-md-offset-1">
       Some filters panel

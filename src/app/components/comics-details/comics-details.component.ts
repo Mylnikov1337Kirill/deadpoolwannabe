@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import { isObject, zoomImage } from '../../utility';
+import { ComicsDetails } from './comics-details';
 
 @Component({
   selector: 'app-comics-details',
@@ -8,8 +9,9 @@ import { isObject, zoomImage } from '../../utility';
 })
 export class ComicsDetailsComponent implements OnChanges {
 
-  @Input() data;
-  @Output() characterDetails: EventEmitter<any> = new EventEmitter();
+  @Input() comics: ComicsDetails;
+  @Input() character;
+  @Output() characterPicked: EventEmitter<any> = new EventEmitter();
 
   public isObject = isObject;
   public zoomImage = zoomImage;
@@ -18,11 +20,16 @@ export class ComicsDetailsComponent implements OnChanges {
     console.log(changes);
   }
 
-  closeView() {
-    this.data = null;
+  closeComicsView() {
+    this.comics = null;
+  }
+
+  closeCharacterView() {
+    this.character = null;
   }
 
   characterView(character) {
-    this.characterDetails.emit(character.resourceURI);
+    const id = character.resourceURI.split(/[/]+/).pop();
+    this.characterPicked.emit(id);
   }
 }

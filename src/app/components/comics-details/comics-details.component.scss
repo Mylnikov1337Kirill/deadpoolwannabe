@@ -55,6 +55,14 @@
           cursor: pointer;
         }
       }
+
+      .character-list li {
+        cursor: pointer;
+
+        a {
+          color: $main-color;
+        }
+      }
     }
   }
 }

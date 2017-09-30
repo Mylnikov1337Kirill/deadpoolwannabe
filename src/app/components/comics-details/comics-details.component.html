@@ -1,14 +1,14 @@
-<div class="comics-details-wrapper" *ngIf="data">
+<div class="comics-details-wrapper" *ngIf="comics">
     <div class="header">
-      <button md-button (click)="closeView()">
+      <button md-button (click)="closeComicsView()">
         <md-icon>highlight_off</md-icon>
       </button>
-      <h2>{{data.title}}</h2>
+      <h2>{{comics.title}}</h2>
     </div>
     <div class="body row">
       <div class="thumb-wrapper col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <img [src]="data.thumbnail" />
-        <p>{{data.description}}</p>
+        <img [src]="comics.thumbnail" />
+        <p>{{comics.description}}</p>
       </div>
       <div class="description-wrapper col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <md-list>
@@ -17,31 +17,32 @@
               pan_tool
             </md-icon>
             <h4 md-line>Format</h4>
-            <p md-line>{{data.format}}</p>
+            <p md-line>{{comics.format}}</p>
           </md-list-item>
           <md-list-item>
             <md-icon md-list-icon>
               library_books
             </md-icon>
             <h4 md-line>Pages</h4>
-            <p md-line>{{data.pageCount}}</p>
+            <p md-line>{{comics.pageCount}}</p>
           </md-list-item>
           <md-list-item>
             <md-icon md-list-icon>
               face
             </md-icon>
             <h4 md-line>Characters</h4>
-            <p md-line *ngIf="!isObject(data.characters)">{{data.characters}}</p>
-            <ul md-line *ngIf="isObject(data.characters)">
-              <li *ngFor="let character of data.characters">
+            <p md-line *ngIf="!isObject(comics.characters)">{{comics.characters}}</p>
+            <ul md-line *ngIf="isObject(comics.characters)" class="character-list">
+              <li *ngFor="let character of comics.characters">
                 <a (click)="characterView(character)">{{character.name}}</a>
               </li>
             </ul>
           </md-list-item>
         </md-list>
       </div>
-      <div class="image-gallery-wrapper col-lg-4 col-md-4 col-sm-12 col-xs-12" *ngIf="isObject(data.images)">
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" *ngFor="let image of data.images">
+      <div class="image-gallery-wrapper col-lg-4 col-md-4 col-sm-12 col-xs-12" *ngIf="isObject(comics.images)">
+        <h3 class="col-xs-12">Image Gallery</h3>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" *ngFor="let image of comics.images">
           <img [src]="image" (click)="zoomImage(image)"/>
         </div>
       </div>

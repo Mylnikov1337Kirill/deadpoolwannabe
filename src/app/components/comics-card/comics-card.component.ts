@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {StateService} from '../../services';
+import { Comics } from './comics';
 
 @Component({
   selector: 'app-comics-card',
@@ -10,7 +11,7 @@ export class ComicsCardComponent {
 
   constructor(private state: StateService) { }
 
-  @Input() data;
+  @Input() data: Comics;
   @Output() onClick: EventEmitter<any> = new EventEmitter();
 
   cardClicked() {
@@ -22,4 +23,3 @@ export class ComicsCardComponent {
     this.data.isFav = !this.data.isFav;
   }
 }
-
