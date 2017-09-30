@@ -1,4 +1,5 @@
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {StateService} from '../../services';
 
 @Component({
   selector: 'app-comics-card',
@@ -7,10 +8,18 @@ import {Component, Input} from "@angular/core";
 })
 export class ComicsCardComponent {
 
-  @Input() data;
+  constructor(private state: StateService) { }
 
-  detailsView() {
-    console.log('clicked');
+  @Input() data;
+  @Output() onClick: EventEmitter<any> = new EventEmitter();
+
+  cardClicked() {
+    this.onClick.emit(this.data.id);
+  }
+
+  toggleFav() {
+    this.state.favComics = this.data.id;
+    this.data.isFav = !this.data.isFav;
   }
 }
 

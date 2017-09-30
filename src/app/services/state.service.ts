@@ -8,19 +8,27 @@ import R from 'ramda';
 export class StateService {
 
   private state = {
-    favComics: []
+    favComics: new Set()
   };
 
   set favComics(id) {
-    if (!R.isNil(id)) {
-      R.contains(id, this.state.favComics)
-        ? this.state.favComics.splice(this.state.favComics.indexOf(id), 1)
-        : this.state.favComics.push(id);
-      LocalStorageService.setItem(LS_FAV_COMICS_LIST, this.state.favComics);
-    }
+      this.isFavorite(id)
+        ? this.state.favComics.delete(id)
+        : this.state.favComics.add(id);
+      LocalStorageService.setItem(LS_FAV_COMICS_LIST, Array.from(this.state.favComics));
   }
 
   get favComics() {
     return this.state.favComics;
+  }
+
+  isFavorite(id): boolean {
+    return this.state.favComics.has(id);
+  }
+
+  initFavList(list): void {
+    if (!R.isNil(list)) {
+      R.forEach((it) => this.favComics = it, list);
+    }
   }
 }

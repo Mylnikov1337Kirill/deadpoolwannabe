@@ -1,0 +1,9 @@
+:host {
+  .app-wrapper {
+    height: calc(100% - 64px);
+
+    .page-content-wrapper {
+      height: 100%;
+    }
+  }
+}

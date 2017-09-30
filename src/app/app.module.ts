@@ -8,13 +8,16 @@ import {
   MdSelectModule,
   MdIconModule,
   MatCardModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatListModule
 } from '@angular/material';
 
 import {
   LayoutComponent,
   HeaderComponent,
-  ComicsCardComponent
+  ComicsCardComponent,
+  ComicsDetailsComponent,
+  ComicsListComponent
 } from './components';
 
 import {
@@ -41,6 +44,8 @@ import 'hammerjs';
     LayoutComponent,
     HeaderComponent,
     ComicsCardComponent,
+    ComicsDetailsComponent,
+    ComicsListComponent,
     MainPageComponent,
     FavouritesPageComponent,
     NotFoundPageComponent
@@ -55,7 +60,8 @@ import 'hammerjs';
     MdSelectModule,
     MdIconModule,
     MatProgressSpinnerModule,
-    MatCardModule
+    MatCardModule,
+    MatListModule
   ],
   providers: [
     AuthService,

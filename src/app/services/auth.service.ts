@@ -18,7 +18,7 @@ export class AuthService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot,
               routerstate: RouterStateSnapshot): boolean {
 
-    this.state.favComics = LocalStorageService.getItem(LS_FAV_COMICS_LIST);
+    this.state.initFavList(LocalStorageService.getItem(LS_FAV_COMICS_LIST));
     return true;
   }
 }

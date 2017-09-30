@@ -2,11 +2,17 @@
 @import "~flexboxgrid/css/flexboxgrid.css";
 @import url(//fonts.googleapis.com/icon?family=Material+Icons);
 @import './assets/variables';
+
 @font-face {
   font-family: Saucer BB Font;
   src: url('./assets/saucer-bb.regular.ttf');
 }
 
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
 body {
   margin: 0;
   padding: 0;

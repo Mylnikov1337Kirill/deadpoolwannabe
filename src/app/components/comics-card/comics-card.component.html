@@ -1,14 +1,14 @@
 <md-card>
   <md-card-content>
-    <img md-card-image (click)="detailsView()"
-         [src]="data.image"/>
+    <img md-card-image (click)="cardClicked()"
+         [src]="data.thumbnail"/>
     <md-card-title>{{data.title}}</md-card-title>
     <md-card-subtitle>{{data.description}}</md-card-subtitle>
   </md-card-content>
   <md-card-actions>
-    <button md-button class="comics-fav-indicator">
-      <md-icon>favorite_border</md-icon>
-      <md-icon>favorite</md-icon>
+    <button md-button class="comics-fav-indicator" (click)="toggleFav()">
+      <md-icon *ngIf="!this.data.isFav">favorite_border</md-icon>
+      <md-icon *ngIf="this.data.isFav">favorite</md-icon>
     </button>
   </md-card-actions>
 </md-card>
