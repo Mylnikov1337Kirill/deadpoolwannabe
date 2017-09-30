@@ -33,7 +33,7 @@
     .body {
       padding: 3rem 16px;
       display: flex;
-      height: 70%;
+      height: 80%;
       overflow-y: scroll;
       margin-right: -17px;
 
@@ -46,6 +46,13 @@
         color: $text-color;
         .mat-line {
           white-space: normal;
+        }
+      }
+
+      .image-gallery-wrapper {
+        img {
+          width: 100%;
+          cursor: pointer;
         }
       }
     }

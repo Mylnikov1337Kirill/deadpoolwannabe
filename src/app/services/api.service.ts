@@ -63,10 +63,6 @@ class ComicsApi extends HttpRequest {
   item(id: number): Observable<any> {
     return this.get(`${API_BASE}/comics/${id}`, { apikey: PUBLIC_KEY });
   }
-
-  characters(id: number): Observable<any> {
-    return this.get(`${API_BASE}/comics/${id}/characters`, { apikey: PUBLIC_KEY });
-  }
 }
 
 class CharactersApi extends HttpRequest {

@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
 import { ApiService, StateService } from '../../services';
+import { NO_DATA_PROVIDED } from '../../utility/consts';
+import { Comics } from './comics';
 
 import R from 'ramda';
-
-class Comics {
-  public id: number;
-  public title: string;
-  public image: string;
-}
 
 @Component({
   templateUrl: './main.page.html',
@@ -33,7 +29,7 @@ export class MainPageComponent {
             ({id,
               title,
               isFav: this.state.isFavorite(id),
-              description: description ? R.concat(description.substr(0, 150), ' ...') : 'No description',
+              description: description ? R.concat(description.substr(0, 150), ' ...') : NO_DATA_PROVIDED,
               thumbnail: `${R.path(['path'], thumbnail)}.${R.path(['extension'], thumbnail)}`})
         )(it),
       data);
@@ -54,11 +50,16 @@ export class MainPageComponent {
                 ({
                   title,
                   thumbnail: `${R.path(['path'], thumbnail)}.${R.path(['extension'], thumbnail)}`,
-                  description: description ? description : 'No description',
-                  characters: R.path(['items'], characters),
-                  format,
-                  images: R.map((image) => `${R.path(['path'], image)}.${R.path(['extension'], image)}`, images),
-                  pageCount
+                  description: description ? description : NO_DATA_PROVIDED,
+                  characters: R.isEmpty(R.path(['items'], characters)) ? NO_DATA_PROVIDED : characters.items,
+                  format: format ? format : NO_DATA_PROVIDED,
+                  /*
+                    Should i omit image which is copying thumbnail :thinking-face:
+                   */
+                  images: R.isEmpty(images)
+                    ? NO_DATA_PROVIDED
+                    : R.map((image) => `${R.path(['path'], image)}.${R.path(['extension'], image)}`, images),
+                  pageCount: pageCount ? pageCount : NO_DATA_PROVIDED
                 })
             ),
             R.path(['0']) // Quick solution
