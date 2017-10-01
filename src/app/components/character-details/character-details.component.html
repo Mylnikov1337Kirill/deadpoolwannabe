@@ -1,4 +1,7 @@
-<app-details [data]="{title: character.name, thumbnail: character.thumbnail}" (viewClosed)="closeView()">
+<app-details
+  [data]="{title: character.name, thumbnail: character.thumbnail, isFav: character.isFav, id: character.id}"
+  (viewClosed)="closeView()"
+  (favToggled)="onFavToggle($event)">
   <div class="description-wrapper col-lg-4 col-md-4 col-ms-12 col-xs-12">
     <h3>
       <md-icon>info_outline</md-icon>

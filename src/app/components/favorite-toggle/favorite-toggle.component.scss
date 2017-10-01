@@ -1,0 +1,9 @@
+@import "../../../assets/variables";
+
+:host {
+  .comics-fav-indicator {
+    .mat-icon {
+      color: $main-color;
+    }
+  }
+}

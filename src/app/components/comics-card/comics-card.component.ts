@@ -13,13 +13,14 @@ export class ComicsCardComponent {
 
   @Input() data: Comics;
   @Output() onClick: EventEmitter<any> = new EventEmitter();
+  @Output() favToggled: EventEmitter<any> = new EventEmitter();
 
   cardClicked() {
     this.onClick.emit(this.data.id);
   }
 
-  toggleFav() {
-    this.state.favComics = this.data.id;
+  onFavToggle() {
     this.data.isFav = !this.data.isFav;
+    this.favToggled.emit(this.data.id);
   }
 }

@@ -12,6 +12,7 @@ export class ComicsDetailsComponent implements OnChanges {
   @Input() comics: ComicsDetails;
   @Output() viewClosed: EventEmitter<any> = new EventEmitter();
   @Output() characterPicked: EventEmitter<any> = new EventEmitter();
+  @Output() favToggled: EventEmitter<any> = new EventEmitter();
 
   public isObject = isObject;
   public zoomImage = zoomImage;
@@ -27,5 +28,9 @@ export class ComicsDetailsComponent implements OnChanges {
   characterView(character) {
     const id = character.resourceURI.split(/[/]+/).pop();
     this.characterPicked.emit(id);
+  }
+
+  onFavToggle(id) {
+    this.favToggled.emit(id);
   }
 }

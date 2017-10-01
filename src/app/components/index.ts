@@ -5,3 +5,4 @@ export * from './comics-list/comics-list.component';
 export * from './details/details.component';
 export * from './comics-details/comics-details.component';
 export * from './character-details/character-details.component';
+export * from './favorite-toggle/favorite-toggle.component';

@@ -27,6 +27,7 @@ export class MainPageComponent {
   public comicsList: Comics[];
   public comicsDetails: ComicsDetails;
   public characterDetails: Character;
+  public filterConfig: any;
 
   init(data) {
     this.comicsList = R.map((it) =>
@@ -35,7 +36,7 @@ export class MainPageComponent {
           ({id, title, thumbnail, description}): Comics =>
             ({id,
               title,
-              isFav: this.state.isFavorite(id),
+              isFav: this.state.isComicsFavorite(id),
               description: description ? R.concat(description.substr(0, 150), ' ...') : NO_DATA_PROVIDED,
               thumbnail: parseImageURL(thumbnail)
             })
@@ -56,7 +57,7 @@ export class MainPageComponent {
           R.pipe(
             R.path(['data', 'results']),
             R.map(
-              ({id, title, thumbnail, description, characters, format, images, pageCount}) =>
+              ({ id, title, thumbnail, description, characters, format, images, pageCount }) =>
                 ({
                   id,
                   title,
@@ -78,10 +79,11 @@ export class MainPageComponent {
                     : R.map((image) => parseImageURL(image), images),
                   pageCount: pageCount
                     ? pageCount
-                    : NO_DATA_PROVIDED
+                    : NO_DATA_PROVIDED,
+                  isFav: this.state.isComicsFavorite(id)
                 })
             ),
-            R.path(['0']) // Quick solution
+            R.path(['0'])
           )(comics);
         this.isLoading = false;
       }
@@ -95,18 +97,32 @@ export class MainPageComponent {
           R.pipe(
             R.path(['data', 'results']),
             R.map(
-              ({ comics, name, thumbnail, description }) =>
+              ({ id, comics, name, thumbnail, description }) =>
                 ({
+                  id,
                   comics: R.path(['items'], comics),
                   name,
                   thumbnail: parseImageURL(thumbnail),
-                  description: description ? description : NO_DATA_PROVIDED
+                  description: description ? description : NO_DATA_PROVIDED,
+                  isFav: this.state.isCharacterFavorite(id)
               })
             ),
             R.path(['0'])
           )(character);
       }
     });
+  }
+
+  comicsFavToggle(id) {
+    this.state.favComics = id;
+    /*
+      Quick solution for list rerender when comics fav was toggled
+     */
+    this.comicsList = R.map((comics) => ({ ...comics, isFav: this.state.isComicsFavorite(comics.id)}), this.comicsList);
+  }
+
+  characterFavToggle(id) {
+    this.state.favCharacters = id;
   }
 
   comicsDetailsClosed() {

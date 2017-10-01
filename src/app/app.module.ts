@@ -19,7 +19,8 @@ import {
   ComicsListComponent,
   DetailsComponent,
   ComicsDetailsComponent,
-  CharacterDetailsComponent
+  CharacterDetailsComponent,
+  FavoriteToggleComponent
 } from './components';
 
 import {
@@ -50,6 +51,7 @@ import 'hammerjs';
     ComicsDetailsComponent,
     CharacterDetailsComponent,
     ComicsListComponent,
+    FavoriteToggleComponent,
     MainPageComponent,
     FavouritesPageComponent,
     NotFoundPageComponent

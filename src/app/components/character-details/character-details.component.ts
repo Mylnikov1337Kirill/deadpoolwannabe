@@ -13,6 +13,7 @@ export class CharacterDetailsComponent {
   @Input() character: Character;
   @Output() comicsPicked: EventEmitter<any> = new EventEmitter();
   @Output() viewClosed: EventEmitter<any> = new EventEmitter();
+  @Output() favToggled: EventEmitter<any> = new EventEmitter();
 
   public isObject = isObject;
 
@@ -23,5 +24,9 @@ export class CharacterDetailsComponent {
   comicsView(comics) {
     const id = comics.resourceURI.split(/[/]+/).pop();
     this.comicsPicked.emit(id);
+  }
+
+  onFavToggle(id) {
+    this.favToggled.emit(id);
   }
 }

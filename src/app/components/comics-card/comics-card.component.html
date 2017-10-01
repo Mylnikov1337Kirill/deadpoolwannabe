@@ -6,10 +6,7 @@
     <md-card-subtitle>{{data.description}}</md-card-subtitle>
   </md-card-content>
   <md-card-actions>
-    <button md-button class="comics-fav-indicator" (click)="toggleFav()">
-      <md-icon *ngIf="!this.data.isFav">favorite_border</md-icon>
-      <md-icon *ngIf="this.data.isFav">favorite</md-icon>
-    </button>
+    <app-favorite-toggle [value]="this.data.isFav" (toggled)="onFavToggle()"></app-favorite-toggle>
   </md-card-actions>
 </md-card>
 

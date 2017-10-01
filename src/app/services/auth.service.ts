@@ -1,7 +1,7 @@
 import { forwardRef, Inject, Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
-import { LS_FAV_COMICS_LIST } from '../utility/consts';
+import { LS_FAV_COMICS_LIST, LS_FAV_CHARACTERS_LIST } from '../utility/consts';
 import { LocalStorageService } from './storage.service';
 import { StateService } from './state.service';
 
@@ -18,7 +18,8 @@ export class AuthService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot,
               routerstate: RouterStateSnapshot): boolean {
 
-    this.state.initFavList(LocalStorageService.getItem(LS_FAV_COMICS_LIST));
+    this.state.initComicsFavList(LocalStorageService.getItem(LS_FAV_COMICS_LIST));
+    this.state.initCharactersFavList(LocalStorageService.getItem(LS_FAV_CHARACTERS_LIST));
     return true;
   }
 }

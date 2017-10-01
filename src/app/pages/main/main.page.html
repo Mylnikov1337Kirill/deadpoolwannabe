@@ -3,6 +3,7 @@
   [comics]="comicsDetails"
   (viewClosed)="comicsDetailsClosed()"
   (characterPicked)="characterDetailsView($event)"
+  (favToggled)="comicsFavToggle($event)"
 ></app-comics-details>
 
 <app-character-details
@@ -10,6 +11,7 @@
   [character]="characterDetails"
   (viewClosed)="characterDetailsClosed()"
   (comicsPicked)="comicsDetailsView($event)"
+  (favToggled)="characterFavToggle($event)"
 ></app-character-details>
 
 <div class="main-page-wrapper row">
@@ -22,8 +24,12 @@
       <div class="filters col-lg-4 col-md-4 col-sm-12 col-xs-12">
         Some filters panel
       </div>
-      <div class="comics col-lg-8 col-md-8 col-sm-12 col-xs-12">
-          <app-comics-list [list]="comicsList" (comicsView)="comicsDetailsView($event)"></app-comics-list>
+      <div class="comics col-lg-4 col-md-6 col-sm-12 col-xs-12">
+          <app-comics-list
+            [list]="comicsList"
+            (comicsView)="comicsDetailsView($event)"
+            (favToggled)="comicsFavToggle($event)"
+          ></app-comics-list>
       </div>
     </div>
   </div>

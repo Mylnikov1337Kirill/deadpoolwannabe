@@ -1,17 +1,9 @@
+@import '../../../assets/variables';
+
 .mat-card {
   overflow: hidden;
-
     img {
       height: auto;
       cursor: pointer;
     }
-
-  .mat-card-actions {
-  }
-
-  .comics-fav-indicator {
-    .mat-icon {
-      color: #F44336;
-    }
-  }
 }

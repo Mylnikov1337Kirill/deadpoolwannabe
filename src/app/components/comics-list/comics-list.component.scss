@@ -5,5 +5,9 @@
 
   div {
     padding-top: 1rem;
+
+    &:last-child {
+      padding-bottom: 1rem;
+    }
   }
 }
