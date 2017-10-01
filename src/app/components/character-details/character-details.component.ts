@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
 import { isObject } from '../../utility';
 import { Character } from './character';
 
@@ -8,7 +8,7 @@ import { Character } from './character';
   templateUrl: './character-details.component.html',
   styleUrls: ['./character-details.component.scss']
 })
-export class CharacterDetailsComponent {
+export class CharacterDetailsComponent implements OnChanges {
 
   @Input() character: Character;
   @Output() comicsPicked: EventEmitter<any> = new EventEmitter();
@@ -24,6 +24,10 @@ export class CharacterDetailsComponent {
   comicsView(comics) {
     const id = comics.resourceURI.split(/[/]+/).pop();
     this.comicsPicked.emit(id);
+  }
+
+  ngOnChanges(asd) {
+    console.log(asd)
   }
 
   onFavToggle(id) {

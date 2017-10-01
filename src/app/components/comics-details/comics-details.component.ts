@@ -7,7 +7,7 @@ import { ComicsDetails } from './comics-details';
   templateUrl: './comics-details.component.html',
   styleUrls: ['./comics-details.component.scss']
 })
-export class ComicsDetailsComponent implements OnChanges {
+export class ComicsDetailsComponent {
 
   @Input() comics: ComicsDetails;
   @Output() viewClosed: EventEmitter<any> = new EventEmitter();
@@ -16,10 +16,6 @@ export class ComicsDetailsComponent implements OnChanges {
 
   public isObject = isObject;
   public zoomImage = zoomImage;
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-  }
 
   closeView() {
     this.viewClosed.emit();

@@ -111,21 +111,23 @@ export class MainPageComponent implements OnInit {
 
   characterDetailsView(id) {
     /*
-      TODO: refactor a bit
+      Refactor a bit
      */
     const cached = this.memoize.receiveCachedCharacter(id);
 
+    //TODO: FIX FAV TOGGLE 
+    console.log(id);
     if (cached) {
+      console.log(cached, this.state.isCharacterFavorite(id));
       this.characterDetails = {...cached, isFav: this.state.isCharacterFavorite(id)};
-    }
-    else {
+    } else {
       this.api.characters.item(id).subscribe((character) => {
         if (character) {
           this.characterDetails =
             R.pipe(
               R.path(['data', 'results']),
               R.map(
-                ({ id, comics, name, thumbnail, description }) =>
+                ({id, comics, name, thumbnail, description}) =>
                   ({
                     id,
                     comics: R.path(['items'], comics),
@@ -137,6 +139,7 @@ export class MainPageComponent implements OnInit {
               ),
               R.path(['0'])
             )(character);
+
           this.memoize.cacheCharacter(this.characterDetails);
         }
       });
