@@ -1,0 +1,16 @@
+<div class="details-wrapper">
+  <div class="header">
+    <button md-button (click)="closeView()">
+      <md-icon>highlight_off</md-icon>
+    </button>
+    <h2>{{data.title}}</h2>
+  </div>
+  <div class="body row">
+    <div class="thumb-wrapper col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <img [src]="data.thumbnail" />
+    </div>
+    <div class="content-wrapper col-lg-8 col-md-8 col-sm-12 col-xs-12 row">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

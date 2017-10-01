@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { ApiService, StateService } from '../../services';
 import { NO_DATA_PROVIDED } from '../../utility/consts';
+import { parseImageURL } from '../../utility';
 import { Comics } from '../../components/comics-card/comics';
 import { ComicsDetails } from '../../components/comics-details/comics-details';
+import { Character } from '../../components/character-details/character';
 
 import R from 'ramda';
 
@@ -24,7 +26,7 @@ export class MainPageComponent {
   public isLoading: boolean = true;
   public comicsList: Comics[];
   public comicsDetails: ComicsDetails;
-  public characterDetails: any;
+  public characterDetails: Character;
 
   init(data) {
     this.comicsList = R.map((it) =>
@@ -35,7 +37,8 @@ export class MainPageComponent {
               title,
               isFav: this.state.isFavorite(id),
               description: description ? R.concat(description.substr(0, 150), ' ...') : NO_DATA_PROVIDED,
-              thumbnail: `${R.path(['path'], thumbnail)}.${R.path(['extension'], thumbnail)}`})
+              thumbnail: parseImageURL(thumbnail)
+            })
         )(it),
       data);
 
@@ -54,17 +57,25 @@ export class MainPageComponent {
               ({title, thumbnail, description, characters, format, images, pageCount}) =>
                 ({
                   title,
-                  thumbnail: `${R.path(['path'], thumbnail)}.${R.path(['extension'], thumbnail)}`,
-                  description: description ? description : NO_DATA_PROVIDED,
-                  characters: R.isEmpty(R.path(['items'], characters)) ? NO_DATA_PROVIDED : characters.items,
-                  format: format ? format : NO_DATA_PROVIDED,
+                  thumbnail: parseImageURL(thumbnail),
+                  description: description
+                    ? description
+                    : NO_DATA_PROVIDED,
+                  characters: R.isEmpty(R.path(['items'], characters))
+                    ? NO_DATA_PROVIDED
+                    : characters.items,
+                  format: format
+                    ? format
+                    : NO_DATA_PROVIDED,
                   /*
                     Should i omit image which is copying thumbnail :thinking-face:
                    */
                   images: R.isEmpty(images)
                     ? NO_DATA_PROVIDED
-                    : R.map((image) => `${R.path(['path'], image)}.${R.path(['extension'], image)}`, images),
-                  pageCount: pageCount ? pageCount : NO_DATA_PROVIDED
+                    : R.map((image) => parseImageURL(image), images),
+                  pageCount: pageCount
+                    ? pageCount
+                    : NO_DATA_PROVIDED
                 })
             ),
             R.path(['0']) // Quick solution
@@ -77,9 +88,29 @@ export class MainPageComponent {
   characterDetailsView(id) {
     this.api.characters.item(id).subscribe((character) => {
       if (character) {
-        this.characterDetails = character;
+        this.characterDetails =
+          R.pipe(
+            R.path(['data', 'results']),
+            R.map(
+              ({ comics, name, thumbnail }) =>
+                ({
+                  comics: R.path(['items'], comics),
+                  name,
+                  thumbnail: parseImageURL(thumbnail)
+              })
+            ),
+            R.path(['0'])
+          )(character);
       }
     });
+  }
+
+  comicsDetailsClosed() {
+    this.comicsDetails = null;
+  }
+
+  characterDetailsClosed() {
+    this.characterDetails = null;
   }
 }
 

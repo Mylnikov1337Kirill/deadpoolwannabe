@@ -16,8 +16,10 @@ import {
   LayoutComponent,
   HeaderComponent,
   ComicsCardComponent,
+  ComicsListComponent,
+  DetailsComponent,
   ComicsDetailsComponent,
-  ComicsListComponent
+  CharacterDetailsComponent
 } from './components';
 
 import {
@@ -44,7 +46,9 @@ import 'hammerjs';
     LayoutComponent,
     HeaderComponent,
     ComicsCardComponent,
+    DetailsComponent,
     ComicsDetailsComponent,
+    CharacterDetailsComponent,
     ComicsListComponent,
     MainPageComponent,
     FavouritesPageComponent,

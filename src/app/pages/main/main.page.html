@@ -1,4 +1,17 @@
-<app-comics-details [comics]="comicsDetails" [character]="characterDetails" (characterPicked)="characterDetailsView($event)"></app-comics-details>
+<app-comics-details
+  *ngIf="comicsDetails"
+  [comics]="comicsDetails"
+  (viewClosed)="comicsDetailsClosed()"
+  (characterPicked)="characterDetailsView($event)"
+></app-comics-details>
+
+<app-character-details
+  *ngIf="characterDetails"
+  [character]="characterDetails"
+  (viewClosed)="characterDetailsClosed()"
+  (comicsPicked)="comicsDetailsView($event)"
+></app-character-details>
+
 <div class="main-page-wrapper col-lg-6 col-md-6 col-sm-8 col-xs-12 col-lg-offset-3 col-sm-offset-2 col-xs-offset-0">
   <div class="loader-container" *ngIf="isLoading">
     <md-spinner></md-spinner>

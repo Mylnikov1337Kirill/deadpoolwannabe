@@ -10,7 +10,7 @@ import { ComicsDetails } from './comics-details';
 export class ComicsDetailsComponent implements OnChanges {
 
   @Input() comics: ComicsDetails;
-  @Input() character;
+  @Output() viewClosed: EventEmitter<any> = new EventEmitter();
   @Output() characterPicked: EventEmitter<any> = new EventEmitter();
 
   public isObject = isObject;
@@ -20,12 +20,8 @@ export class ComicsDetailsComponent implements OnChanges {
     console.log(changes);
   }
 
-  closeComicsView() {
-    this.comics = null;
-  }
-
-  closeCharacterView() {
-    this.character = null;
+  closeView() {
+    this.viewClosed.emit();
   }
 
   characterView(character) {
