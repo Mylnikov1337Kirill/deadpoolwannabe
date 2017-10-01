@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import { isObject, zoomImage } from '../../utility';
+import { isObject } from '../../utility';
 import { Character } from './character';
 
 
@@ -15,10 +15,13 @@ export class CharacterDetailsComponent {
   @Output() viewClosed: EventEmitter<any> = new EventEmitter();
 
   public isObject = isObject;
-  public zoomImage = zoomImage;
 
   closeView() {
     this.viewClosed.emit();
   }
 
+  comicsView(comics) {
+    const id = comics.resourceURI.split(/[/]+/).pop();
+    this.comicsPicked.emit(id);
+  }
 }

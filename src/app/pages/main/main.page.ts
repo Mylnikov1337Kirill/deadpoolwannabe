@@ -47,6 +47,8 @@ export class MainPageComponent {
 
   comicsDetailsView(id) {
     // ADD MEMOIZE
+    this.characterDetails = null;
+    this.comicsDetails = null;
     this.isLoading = true;
     this.api.comics.item(id).subscribe((comics) => {
       if (comics) {
@@ -92,11 +94,12 @@ export class MainPageComponent {
           R.pipe(
             R.path(['data', 'results']),
             R.map(
-              ({ comics, name, thumbnail }) =>
+              ({ comics, name, thumbnail, description }) =>
                 ({
                   comics: R.path(['items'], comics),
                   name,
-                  thumbnail: parseImageURL(thumbnail)
+                  thumbnail: parseImageURL(thumbnail),
+                  description: description ? description : NO_DATA_PROVIDED
               })
             ),
             R.path(['0'])

@@ -1,3 +1,13 @@
 <app-details [data]="{title: character.name, thumbnail: character.thumbnail}" (viewClosed)="closeView()">
-  <div>Some info</div>
+  <div class="description-wrapper col-lg-4 col-md-4 col-ms-12 col-xs-12">
+    <p>{{character.description}}</p>
+  </div>
+  <div class="participated-comics-wrapper col-lg-8 col-md-8 col-sm-12 col-xs-12" *ngIf="isObject(character.comics)">
+    <h3 class="col-xs-12">Participated Comics</h3>
+    <md-list>
+      <md-list-item *ngFor="let comics of character.comics">
+        <a (click)="comicsView(comics)">{{comics.name}}</a>
+      </md-list-item>
+    </md-list>
+  </div>
 </app-details>

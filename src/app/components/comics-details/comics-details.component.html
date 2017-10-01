@@ -30,7 +30,7 @@
       </md-list-item>
     </md-list>
   </div>
-  <div class="image-gallery-wrapper col-lg-6 col-md-6 col-sm-12 col-xs-12" *ngIf="isObject(comics.images)">
+  <div class="image-gallery-wrapper col-lg-6 col-md-6 col-sm-12 col-xs-12 row" *ngIf="isObject(comics.images)">
     <h3 class="col-xs-12">Image Gallery</h3>
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" *ngFor="let image of comics.images">
       <img [src]="image" (click)="zoomImage(image)"/>

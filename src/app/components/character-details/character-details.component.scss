@@ -1,0 +1,18 @@
+@import '../../../assets/variables';
+
+:host {
+  .participated-comics-wrapper {
+    .mat-list-item {
+      cursor: pointer;
+
+      /deep/ .mat-list-item-content {
+        height: 20px;
+        padding: 0 1rem;
+
+        a {
+          color: $main-color;
+        }
+      }
+    }
+  }
+}
