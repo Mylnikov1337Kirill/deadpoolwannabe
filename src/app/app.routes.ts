@@ -14,6 +14,9 @@ const ROUTES: Routes = [
     path: `${APP_VERSION}`,
     canActivate: [AuthService],
     children: [
+      /*
+        TODO: LazyLoad
+       */
       {
         path: '',
         data: { title: 'Comics' },

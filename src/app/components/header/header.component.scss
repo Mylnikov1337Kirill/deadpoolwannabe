@@ -1,11 +1,19 @@
 @import '../../../assets/variables';
 
-:host{
-  .mat-toolbar {
-    background: $main-color;
-  }
+:host {
+
   .logo {
     font-family: $comics-font;
     font-size: 36px;
   }
+
+  .mat-toolbar {
+    background: $main-color;
+
+    .mat-toolbar-row {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
 }

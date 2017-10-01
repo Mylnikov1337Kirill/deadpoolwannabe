@@ -1,5 +1,5 @@
 <div class="comics-list row">
-  <div *ngFor="let comics of list">
+  <div *ngFor="let comics of list" class="col-xs-12">
     <app-comics-card [data]="comics" (onClick)="detailsView($event)">
     </app-comics-card>
   </div>
