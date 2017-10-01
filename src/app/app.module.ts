@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MdToolbarModule,
@@ -8,6 +9,7 @@ import {
   MdSelectModule,
   MdIconModule,
   MatCardModule,
+  MatInputModule,
   MatProgressSpinnerModule,
   MatListModule
 } from '@angular/material';
@@ -64,10 +66,13 @@ import 'hammerjs';
     MdToolbarModule,
     MdButtonModule,
     MdSelectModule,
+    MatInputModule,
     MdIconModule,
     MatProgressSpinnerModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,

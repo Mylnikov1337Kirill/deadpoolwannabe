@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ApiService, StateService } from '../../services';
-import { NO_DATA_PROVIDED } from '../../utility/consts';
+import { NO_DATA_PROVIDED, DATE_DESCRIPTOR_DICT } from '../../utility/consts';
 import { parseImageURL } from '../../utility';
 import { Comics } from '../../components/comics-card/comics';
 import { ComicsDetails } from '../../components/comics-details/comics-details';
@@ -8,16 +9,27 @@ import { Character } from '../../components/character-details/character';
 
 import R from 'ramda';
 
+
 @Component({
   templateUrl: './main.page.html',
   styleUrls: ['./main.page.scss']
 })
-export class MainPageComponent {
+export class MainPageComponent implements OnInit {
 
   constructor(private api: ApiService, private state: StateService) {
-    api.comics.list().subscribe((response) => response
-      ? this.init(R.path(['data', 'results'], response))
-      : this.isLoading = true);
+    this.getList({});
+    // api.comics.list().subscribe((response) => response
+    //   ? this.init(R.path(['data', 'results'], response))
+    //   : this.isLoading = true);
+  }
+
+  getList(filter) {
+    this.isLoading = true;
+    this.api.comics.list({...filter}).subscribe((list) => {
+      if (list) {
+        this.init(R.path(['data', 'results'], list));
+      }
+    });
   }
 
   /*
@@ -27,7 +39,14 @@ export class MainPageComponent {
   public comicsList: Comics[];
   public comicsDetails: ComicsDetails;
   public characterDetails: Character;
-  public filterConfig: any;
+  public filter: any = {
+    value: new FormGroup({
+      dateDescriptor: new FormControl('')
+    }),
+    config: {
+      dateDescriptor: DATE_DESCRIPTOR_DICT
+    }
+  };
 
   init(data) {
     this.comicsList = R.map((it) =>
@@ -131,6 +150,12 @@ export class MainPageComponent {
 
   characterDetailsClosed() {
     this.characterDetails = null;
+  }
+
+  ngOnInit() {
+    this.filter.value.valueChanges.subscribe((value) => {
+      this.getList(R.reject(R.isEmpty, value));
+    });
   }
 }
 

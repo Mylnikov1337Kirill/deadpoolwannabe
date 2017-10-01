@@ -31,7 +31,7 @@ class HttpRequest {
 
   get(url: string, params?: {}): Observable<any> {
     return this.http
-      .get(url, { params })
+      .get(url, { params: { ...params, apikey: PUBLIC_KEY }})
       .map(prepareSuccess)
       .catch(prepareError)
       .share();
@@ -57,11 +57,11 @@ class ComicsApi extends HttpRequest {
   }
 
   list(filter?): Observable<any> {
-    return this.get(`${API_BASE}/comics`, { limit: 20, filter, apikey: PUBLIC_KEY });
+    return this.get(`${API_BASE}/comics`, { limit: 20, ...filter });
   }
 
   item(id: number): Observable<any> {
-    return this.get(`${API_BASE}/comics/${id}`, { apikey: PUBLIC_KEY });
+    return this.get(`${API_BASE}/comics/${id}`);
   }
 }
 
@@ -72,10 +72,6 @@ class CharactersApi extends HttpRequest {
   }
 
   item(id: number): Observable<any> {
-    return this.get(`${API_BASE}/characters/${id}`, { apikey: PUBLIC_KEY });
-  }
-
-  comics(id: number): Observable<any> {
-    return this.get(`${API_BASE}/characters/${id}/comics`, { apikey: PUBLIC_KEY });
+    return this.get(`${API_BASE}/characters/${id}`);
   }
 }

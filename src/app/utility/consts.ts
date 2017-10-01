@@ -3,6 +3,10 @@ export const LS_FAV_CHARACTERS_LIST = 'czFavCharactersList';
 export const NO_DATA_PROVIDED = 'No data provided';
 export const DATE_DESCRIPTOR_DICT = [
   {
+    value: '',
+    name: 'All'
+  },
+  {
     value: 'lastWeek',
     name: 'Last Week'
   },
