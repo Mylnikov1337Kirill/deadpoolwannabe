@@ -56,8 +56,9 @@ export class MainPageComponent {
           R.pipe(
             R.path(['data', 'results']),
             R.map(
-              ({title, thumbnail, description, characters, format, images, pageCount}) =>
+              ({id, title, thumbnail, description, characters, format, images, pageCount}) =>
                 ({
+                  id,
                   title,
                   thumbnail: parseImageURL(thumbnail),
                   description: description

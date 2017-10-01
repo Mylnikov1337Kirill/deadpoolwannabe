@@ -9,11 +9,24 @@
       }
     }
 
-    .character-list li {
-      cursor: pointer;
+    .character-list {
 
-      a {
-        color: $main-color;
+      p {
+        padding: 0 1rem;
+      }
+
+      .mat-list-item {
+        cursor: pointer;
+
+        //override element shadow-dom kmp...
+        /deep/ .mat-list-item-content {
+          height: 20px;
+          padding: 0 1rem;
+
+          a {
+            color: $main-color;
+          }
+        }
       }
     }
   }

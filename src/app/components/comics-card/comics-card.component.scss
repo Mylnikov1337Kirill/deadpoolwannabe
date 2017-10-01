@@ -1,19 +1,13 @@
 .mat-card {
+  width: 420px;
+  overflow: hidden;
 
-  height: 480px;
-
-  img {
-    cursor: pointer;
-  }
+    img {
+      height: auto;
+      cursor: pointer;
+    }
 
   .mat-card-actions {
-    position: absolute;
-    bottom: 24px;
-    left: 24px;
-  }
-
-  .mat-card-image {
-    max-height: 290px;
   }
 
   .comics-fav-indicator {

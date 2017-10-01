@@ -1,5 +1,9 @@
 <app-details [data]="{title: character.name, thumbnail: character.thumbnail}" (viewClosed)="closeView()">
   <div class="description-wrapper col-lg-4 col-md-4 col-ms-12 col-xs-12">
+    <h3>
+      <md-icon>info_outline</md-icon>
+      Character Description
+    </h3>
     <p>{{character.description}}</p>
   </div>
   <div class="participated-comics-wrapper col-lg-8 col-md-8 col-sm-12 col-xs-12" *ngIf="isObject(character.comics)">

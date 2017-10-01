@@ -2,5 +2,5 @@ export class Character {
   description: string;
   name: string;
   thumbnail: string;
-  comics: string[];
+  comics: {name: string, resourceURI: string}[];
 }

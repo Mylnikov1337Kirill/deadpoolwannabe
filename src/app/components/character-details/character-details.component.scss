@@ -5,6 +5,7 @@
     .mat-list-item {
       cursor: pointer;
 
+      //override shadow-dom kmp..
       /deep/ .mat-list-item-content {
         height: 20px;
         padding: 0 1rem;

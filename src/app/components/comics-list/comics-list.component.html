@@ -1,4 +1,4 @@
-<div class="comics-list">
+<div class="comics-list row">
   <div *ngFor="let comics of list">
     <app-comics-card [data]="comics" (onClick)="detailsView($event)">
     </app-comics-card>

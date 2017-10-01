@@ -1,5 +1,9 @@
 <app-details [data]="{title: comics.title, thumbnail: comics.thumbnail}" (viewClosed)="closeView()">
   <div class="description-wrapper col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <h3>
+      <md-icon>info_outline</md-icon>
+      Comics Description
+    </h3>
     <p>{{comics.description}}</p>
     <md-list>
       <md-list-item>
@@ -16,19 +20,21 @@
         <h4 md-line>Pages</h4>
         <p md-line>{{comics.pageCount}}</p>
       </md-list-item>
-      <md-list-item>
+    </md-list>
+    <div class="character-list">
+      <h3 class="col-xs-12">
         <md-icon md-list-icon>
           face
         </md-icon>
-        <h4 md-line>Characters</h4>
-        <p md-line *ngIf="!isObject(comics.characters)">{{comics.characters}}</p>
-        <ul md-line *ngIf="isObject(comics.characters)" class="character-list">
-          <li *ngFor="let character of comics.characters">
-            <a (click)="characterView(character)">{{character.name}}</a>
-          </li>
-        </ul>
-      </md-list-item>
-    </md-list>
+        Characters
+      </h3>
+      <p md-line *ngIf="!isObject(comics.characters)">{{comics.characters}}</p>
+      <md-list *ngIf="isObject(comics.characters)">
+        <md-list-item *ngFor="let character of comics.characters">
+          <a (click)="characterView(character)">{{character.name}}</a>
+        </md-list-item>
+      </md-list>
+    </div>
   </div>
   <div class="image-gallery-wrapper col-lg-6 col-md-6 col-sm-12 col-xs-12 row" *ngIf="isObject(comics.images)">
     <h3 class="col-xs-12">Image Gallery</h3>

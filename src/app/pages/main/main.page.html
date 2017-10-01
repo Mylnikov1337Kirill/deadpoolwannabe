@@ -12,17 +12,17 @@
   (comicsPicked)="comicsDetailsView($event)"
 ></app-character-details>
 
-<div class="main-page-wrapper col-lg-6 col-md-6 col-sm-8 col-xs-12 col-lg-offset-3 col-sm-offset-2 col-xs-offset-0">
+<div class="main-page-wrapper col-lg-8 col-md-8 col-sm-10 col-xs-12 col-lg-offset-2 col-sm-offset-1 col-xs-offset-0">
   <div class="loader-container" *ngIf="isLoading">
     <md-spinner></md-spinner>
   </div>
 
-  <div class="row comics-list-wrapper" *ngIf="!isLoading">
-    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-      <app-comics-list [list]="comicsList" (comicsView)="comicsDetailsView($event)"></app-comics-list>
-    </div>
-    <div class="filters col-lg-4 col-md-4 col-sm-0 col-xs-0 col-lg-offset-1 col-md-offset-1">
+  <div class="row comics-list-wrapper row" *ngIf="!isLoading">
+    <div class="filters col-lg-4 col-md-4 col-sm-0 col-xs-0">
       Some filters panel
+    </div>
+    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-1">
+      <app-comics-list [list]="comicsList" (comicsView)="comicsDetailsView($event)"></app-comics-list>
     </div>
   </div>
 </div>
