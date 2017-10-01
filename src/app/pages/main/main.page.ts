@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ApiService, StateService } from '../../services';
-import { NO_DATA_PROVIDED, DATE_DESCRIPTOR_DICT } from '../../utility/consts';
+import { ApiService, StateService, MemoizeService } from '../../services';
+import { NO_DATA_PROVIDED, DATE_DESCRIPTOR_DICT, COMICS_FORMAT_DICT } from '../../utility/consts';
 import { parseImageURL } from '../../utility';
 import { Comics } from '../../components/comics-card/comics';
 import { ComicsDetails } from '../../components/comics-details/comics-details';
@@ -16,20 +16,8 @@ import R from 'ramda';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor(private api: ApiService, private state: StateService) {
+  constructor(private api: ApiService, private state: StateService, private memoize: MemoizeService) {
     this.getList({});
-    // api.comics.list().subscribe((response) => response
-    //   ? this.init(R.path(['data', 'results'], response))
-    //   : this.isLoading = true);
-  }
-
-  getList(filter) {
-    this.isLoading = true;
-    this.api.comics.list({...filter}).subscribe((list) => {
-      if (list) {
-        this.init(R.path(['data', 'results'], list));
-      }
-    });
   }
 
   /*
@@ -41,10 +29,12 @@ export class MainPageComponent implements OnInit {
   public characterDetails: Character;
   public filter: any = {
     value: new FormGroup({
-      dateDescriptor: new FormControl('')
+      dateDescriptor: new FormControl(''),
+      format: new FormControl('')
     }),
     config: {
-      dateDescriptor: DATE_DESCRIPTOR_DICT
+      dateDescriptor: DATE_DESCRIPTOR_DICT,
+      format: COMICS_FORMAT_DICT
     }
   };
 
@@ -63,6 +53,15 @@ export class MainPageComponent implements OnInit {
       data);
 
     this.isLoading = false;
+  }
+
+  getList(filter) {
+    this.isLoading = true;
+    this.api.comics.list({...filter}).subscribe((list) => {
+      if (list) {
+        this.init(R.path(['data', 'results'], list));
+      }
+    });
   }
 
   comicsDetailsView(id) {
@@ -104,32 +103,44 @@ export class MainPageComponent implements OnInit {
             ),
             R.path(['0'])
           )(comics);
-        this.isLoading = false;
+            this.memoize.cacheComics(this.comicsDetails);
+            this.isLoading = false;
       }
     });
   }
 
   characterDetailsView(id) {
-    this.api.characters.item(id).subscribe((character) => {
-      if (character) {
-        this.characterDetails =
-          R.pipe(
-            R.path(['data', 'results']),
-            R.map(
-              ({ id, comics, name, thumbnail, description }) =>
-                ({
-                  id,
-                  comics: R.path(['items'], comics),
-                  name,
-                  thumbnail: parseImageURL(thumbnail),
-                  description: description ? description : NO_DATA_PROVIDED,
-                  isFav: this.state.isCharacterFavorite(id)
-              })
-            ),
-            R.path(['0'])
-          )(character);
-      }
-    });
+    /*
+      TODO: refactor a bit
+     */
+    const cached = this.memoize.receiveCachedCharacter(id);
+
+    if (cached) {
+      this.characterDetails = {...cached, isFav: this.state.isCharacterFavorite(id)};
+    }
+    else {
+      this.api.characters.item(id).subscribe((character) => {
+        if (character) {
+          this.characterDetails =
+            R.pipe(
+              R.path(['data', 'results']),
+              R.map(
+                ({ id, comics, name, thumbnail, description }) =>
+                  ({
+                    id,
+                    comics: R.path(['items'], comics),
+                    name,
+                    thumbnail: parseImageURL(thumbnail),
+                    description: description ? description : NO_DATA_PROVIDED,
+                    isFav: this.state.isCharacterFavorite(id)
+                  })
+              ),
+              R.path(['0'])
+            )(character);
+          this.memoize.cacheCharacter(this.characterDetails);
+        }
+      });
+    }
   }
 
   comicsFavToggle(id) {

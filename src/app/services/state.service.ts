@@ -9,18 +9,26 @@ export class StateService {
 
   private state = {
     favComics: new Set(),
-    favCharacters: new Set()
+    favCharacters: new Set(),
+    cachedComics: {},
+    cachedCharacters: {}
   };
+
+  private initFavList(name, list): void {
+    if (!R.isNil(list)) {
+      R.forEach((it) => this[name] = it, list);
+    }
+  }
+
+  private isFavorite(list, id): boolean {
+    return this.state[list].has(id);
+  }
 
   set favComics(id) {
       this.isComicsFavorite(id)
         ? this.state.favComics.delete(id)
         : this.state.favComics.add(id);
       LocalStorageService.setItem(LS_FAV_COMICS_LIST, Array.from(this.favComics));
-  }
-
-  get favComics() {
-    return this.state.favComics;
   }
 
   set favCharacters(id) {
@@ -30,20 +38,36 @@ export class StateService {
     LocalStorageService.setItem(LS_FAV_CHARACTERS_LIST, Array.from(this.favCharacters));
   }
 
+  get favComics() {
+    return this.state.favComics;
+  }
+
   get favCharacters() {
     return this.state.favCharacters;
   }
 
-  isCharacterFavorite(id) {
+  setCachedCharacter(cache) {
+    this.state.cachedCharacters = { ...this.state.cachedCharacters, ...cache };
+  }
+
+  getCachedCharacter(id) {
+    return this.state.cachedCharacters[id];
+  }
+
+  setCachedComics(cache) {
+    this.state.cachedComics = { ...this.state.cachedComics, ...cache };
+  }
+
+  getCachedComics(id) {
+    return this.state.cachedComics[id];
+  }
+
+  isCharacterFavorite(id): boolean {
     return this.isFavorite('favCharacters', id);
   }
 
-  isComicsFavorite(id) {
+  isComicsFavorite(id): boolean {
     return this.isFavorite('favComics', id);
-  }
-
-  isFavorite(list, id): boolean {
-    return this.state[list].has(id);
   }
 
   initComicsFavList(list): void {
@@ -54,9 +78,4 @@ export class StateService {
     this.initFavList('favCharacters', list);
   }
 
-  initFavList(name, list): void {
-    if (!R.isNil(list)) {
-      R.forEach((it) => this[name] = it, list);
-    }
-  }
 }

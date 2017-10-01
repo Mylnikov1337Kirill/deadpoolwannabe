@@ -35,7 +35,8 @@ import {
   AuthService,
   ApiService,
   StateService,
-  LocalStorageService
+  LocalStorageService,
+  MemoizeService
 } from './services';
 
 import { AppRoutingModule } from './app.routes';
@@ -78,7 +79,8 @@ import 'hammerjs';
     AuthService,
     ApiService,
     StateService,
-    LocalStorageService
+    LocalStorageService,
+    MemoizeService
   ],
   bootstrap: [AppComponent]
 })

@@ -26,6 +26,9 @@
           <md-select placeholder="Date Descriptor" formControlName="dateDescriptor">
             <md-option *ngFor="let option of filter.config.dateDescriptor" [value]="option.value">{{option.name}}</md-option>
           </md-select>
+          <md-select placeholder="Format" formControlName="format">
+            <md-option *ngFor="let option of filter.config.format" [value]="option.value">{{option.name}}</md-option>
+          </md-select>
         </form>
       </div>
       <div class="comics col-lg-4 col-md-6 col-sm-12 col-xs-12">
