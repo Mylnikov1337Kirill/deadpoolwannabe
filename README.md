@@ -1,7 +1,7 @@
 # ComiX Zone
 
 Project is completed *Ha-Ha* as fast as possible. 
-There are still enough of edgy moments, lack of functional variety, low-budget design and so on, but i got ~~4-hr sleep~~ fun by 'playing' this (;
+There are still enough of edgy moments, lack of functional variety, low-budget design and so on, but i got ~~4-hour sleep~~ fun by 'playing' this (;
 
 ## Small Summary
 
