@@ -9,7 +9,9 @@ export class MemoizeService {
   constructor(@Inject(forwardRef(() => StateService)) private state: StateService) {}
 
   private prepareValue(cache, id) {
-    return !R.isNil(cache) && this.isCacheActual(R.path([id, 'ts'], cache)) ? cache : cache;
+    return !R.isNil(cache) && this.isCacheActual(R.path([id, 'ts'], cache))
+      ? {...cache, isFav: this.state.isCharacterFavorite(id)}
+      : cache;
   }
 
   private isCacheActual(ts) {
@@ -23,6 +25,7 @@ export class MemoizeService {
 
   public receiveCachedCharacter(id) {
     const cache = this.state.getCachedCharacter(id);
+    console.log(cache);
     return this.prepareValue(cache, id);
   }
 

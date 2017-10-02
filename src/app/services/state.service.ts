@@ -63,11 +63,11 @@ export class StateService {
   }
 
   isCharacterFavorite(id): boolean {
-    return this.isFavorite('favCharacters', id);
+    return this.isFavorite('favCharacters', +id);
   }
 
   isComicsFavorite(id): boolean {
-    return this.isFavorite('favComics', id);
+    return this.isFavorite('favComics', +id);
   }
 
   initComicsFavList(list): void {
