@@ -22,6 +22,8 @@ There are still enough of edgy moments, lack of functional variety, low-budget d
 2. ```ng serve```;
 3. navigate to localhost:4200 & chill ;P
 
-## Live Demo 
+## Live Demo (Published by [Surge](http://surge.sh/))
+
+[Demo](http://icomix-zone.surge.sh)
 
 
