@@ -8,34 +8,41 @@ import R from 'ramda';
 export class StateService {
 
   private state = {
-    favComics: new Set(),
-    favCharacters: new Set(),
+    favComics: {},
+    favCharacters: {},
     cachedComics: {},
     cachedCharacters: {}
   };
 
   private initFavList(name, list): void {
     if (!R.isNil(list)) {
-      R.forEach((it) => this[name] = it, list);
+      R.forEachObjIndexed((it) => this[name] = it, list);
+    }
+  }
+
+  private initCachedList(name, list): void {
+    if (!R.isNil(list)) {
+      R.forEachObjIndexed((it) => this[name] = it, list);
     }
   }
 
   private isFavorite(list, id): boolean {
-    return this.state[list].has(id);
+    return R.has(id, this.state[list]);
   }
 
-  set favComics(id) {
-      this.isComicsFavorite(id)
-        ? this.state.favComics.delete(id)
-        : this.state.favComics.add(id);
-      LocalStorageService.setItem(LS_FAV_COMICS_LIST, Array.from(this.favComics));
+  set favComics(data) {
+      this.isComicsFavorite(R.path(['id'], data))
+        ? this.state.favComics = R.omit([R.toString(R.path(['id'], data))], this.state.favComics)
+        : this.state.favComics = { ...this.state.favComics, ...{[R.path(['id'], data)]: data} };
+      LocalStorageService.setItem(LS_FAV_COMICS_LIST, this.favComics);
+
   }
 
-  set favCharacters(id) {
-    this.isCharacterFavorite(id)
-      ? this.state.favCharacters.delete(id)
-      : this.state.favCharacters.add(id);
-    LocalStorageService.setItem(LS_FAV_CHARACTERS_LIST, Array.from(this.favCharacters));
+  set favCharacters(data) {
+    this.isCharacterFavorite(R.path(['id'], data))
+      ? this.state.favCharacters = R.omit([R.toString(R.path(['id'], data))], this.state.favCharacters)
+      : this.state.favCharacters = { ...this.state.favCharacters, ...{[R.path(['id'], data)]: data} };
+    LocalStorageService.setItem(LS_FAV_CHARACTERS_LIST, this.favCharacters);
   }
 
   get favComics() {

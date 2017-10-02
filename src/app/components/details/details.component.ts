@@ -16,6 +16,6 @@ export class DetailsComponent {
 
   onFavToggle() {
     this.data.isFav = !this.data.isFav;
-    this.favToggled.emit(this.data.id);
+    this.favToggled.emit({id: this.data.id, name: this.data.title});
   }
 }

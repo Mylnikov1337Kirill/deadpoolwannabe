@@ -8,7 +8,7 @@ import { Character } from './character';
   templateUrl: './character-details.component.html',
   styleUrls: ['./character-details.component.scss']
 })
-export class CharacterDetailsComponent implements OnChanges {
+export class CharacterDetailsComponent {
 
   @Input() character: Character;
   @Output() comicsPicked: EventEmitter<any> = new EventEmitter();
@@ -26,11 +26,7 @@ export class CharacterDetailsComponent implements OnChanges {
     this.comicsPicked.emit(id);
   }
 
-  ngOnChanges(asd) {
-    console.log(asd)
-  }
-
-  onFavToggle(id) {
-    this.favToggled.emit(id);
+  onFavToggle(data) {
+    this.favToggled.emit(data);
   }
 }

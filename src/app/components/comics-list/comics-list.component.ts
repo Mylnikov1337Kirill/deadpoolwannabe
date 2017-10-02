@@ -14,7 +14,7 @@ export class ComicsListComponent {
     this.comicsView.emit(id);
   }
 
-  onFavToggle(id) {
-    this.favToggled.emit(id);
+  onFavToggle(data) {
+    this.favToggled.emit(data);
   }
 }

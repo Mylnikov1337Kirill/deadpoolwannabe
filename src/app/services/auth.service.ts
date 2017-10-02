@@ -20,6 +20,8 @@ export class AuthService implements CanActivate {
 
     this.state.initComicsFavList(LocalStorageService.getItem(LS_FAV_COMICS_LIST));
     this.state.initCharactersFavList(LocalStorageService.getItem(LS_FAV_CHARACTERS_LIST));
+    console.log(this.state.favCharacters);
+    console.log(this.state.favComics);
     return true;
   }
 }

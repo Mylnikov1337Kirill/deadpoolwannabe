@@ -116,10 +116,9 @@ export class MainPageComponent implements OnInit {
     const cached = this.memoize.receiveCachedCharacter(id);
 
     //TODO: FIX FAV TOGGLE
-    console.log(id, this.state.isCharacterFavorite(id));
     if (cached) {
-      this.characterDetails = cached;
-      console.log(this.characterDetails, this.state.favCharacters);
+      this.characterDetails = { ...cached, isFav: this.state.isCharacterFavorite(id) };
+      console.log(id, this.state.isCharacterFavorite(id), cached, this.state.favCharacters);
     } else {
       this.api.characters.item(id).subscribe((character) => {
         if (character) {
@@ -148,16 +147,16 @@ export class MainPageComponent implements OnInit {
     }
   }
 
-  comicsFavToggle(id) {
-    this.state.favComics = id;
+  comicsFavToggle(data) {
+    this.state.favComics = data;
     /*
       Quick solution for list rerender when comics fav was toggled
      */
     this.comicsList = R.map((comics) => ({ ...comics, isFav: this.state.isComicsFavorite(comics.id)}), this.comicsList);
   }
 
-  characterFavToggle(id) {
-    this.state.favCharacters = id;
+  characterFavToggle(data) {
+    this.state.favCharacters = data;
   }
 
   comicsDetailsClosed() {
