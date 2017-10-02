@@ -9,6 +9,18 @@ import { Character } from '../../components/character-details/character';
 
 import R from 'ramda';
 
+//move to layout class
+class Loader {
+  public isLoading: boolean;
+
+  show() {
+    this.isLoading = true;
+  }
+
+  hide() {
+    this.isLoading = false;
+  }
+}
 
 @Component({
   templateUrl: './main.page.html',
@@ -17,13 +29,10 @@ import R from 'ramda';
 export class MainPageComponent implements OnInit {
 
   constructor(private api: ApiService, private state: StateService, private memoize: MemoizeService) {
-    this.getComicsList({});
+    this.prepareComicsList({});
   }
 
-  /*
-    Loader should be moved to some global state
-   */
-  public isLoading: boolean = true;
+  public loader: Loader = new Loader();
   public comicsList: Comics[];
   public comicsDetails: ComicsDetails;
   public characterDetails: Character;
@@ -38,8 +47,46 @@ export class MainPageComponent implements OnInit {
     }
   };
 
-  getComicsList(filter) {
-    this.isLoading = true;
+  comicsDetailsView(id) {
+    this.comicsDetailsClosed();
+    this.characterDetailsClosed();
+
+    const cached = this.memoize.receiveCachedComics(id);
+
+    if (cached) {
+      /*
+         Dont forget to hide  
+       */
+      this.comicsDetails = { ...cached, isFav: this.state.isComicsFavorite(id) };
+    } else {
+       this.prepareComicsDetails(id);
+    }
+  }
+
+  characterDetailsView(id) {
+    const cached = this.memoize.receiveCachedCharacter(id);
+
+    if (cached) {
+      this.characterDetails = { ...cached, isFav: this.state.isCharacterFavorite(id) };
+    } else {
+      this.prepareCharacterDetails(id);
+    }
+  }
+
+  comicsFavToggle(data) {
+    this.state.favComics = data;
+    /*
+      Observable's Subscribe low-cost edition ;P
+     */
+    this.comicsList = R.map((comics) => ({ ...comics, isFav: this.state.isComicsFavorite(comics.id)}), this.comicsList);
+  }
+
+  characterFavToggle(data) {
+    this.state.favCharacters = data;
+  }
+
+  prepareComicsList(filter) {
+    this.loader.show();
     this.api.comics.list({...filter}).subscribe((list) => {
       if (list) {
         this.comicsList = R.map((it) =>
@@ -55,12 +102,13 @@ export class MainPageComponent implements OnInit {
             )(it),
           R.path(['data', 'results'], list));
 
-        this.isLoading = false;
+        this.loader.hide();
       }
     });
   }
 
   prepareComicsDetails(id) {
+    this.loader.show();
     this.api.comics.item(id).subscribe((comics) => {
       if (comics) {
         this.comicsDetails =
@@ -97,12 +145,13 @@ export class MainPageComponent implements OnInit {
           )(comics);
 
         this.memoize.cacheComics(this.comicsDetails);
-        this.isLoading = false;
+        this.loader.hide();
       }
     });
   }
 
   prepareCharacterDetails(id) {
+    this.loader.show();
     this.api.characters.item(id).subscribe((character) => {
       if (character) {
         this.characterDetails =
@@ -121,48 +170,11 @@ export class MainPageComponent implements OnInit {
             ),
             R.path(['0'])
           )(character);
+
         this.memoize.cacheCharacter(this.characterDetails);
+        this.loader.hide();
       }
     });
-  }
-
-
-
-  comicsDetailsView(id) {
-    this.characterDetails = null;
-    this.comicsDetails = null;
-    this.isLoading = true;
-
-    const cached = this.memoize.receiveCachedComics(id);
-
-    if (cached) {
-      this.comicsDetails = { ...cached, isFav: this.state.isComicsFavorite(id) };
-      this.isLoading = false;
-    } else {
-       this.prepareComicsDetails(id);
-    }
-  }
-
-  characterDetailsView(id) {
-    const cached = this.memoize.receiveCachedCharacter(id);
-
-    if (cached) {
-      this.characterDetails = { ...cached, isFav: this.state.isCharacterFavorite(id) };
-    } else {
-      this.prepareCharacterDetails(id);
-    }
-  }
-
-  comicsFavToggle(data) {
-    this.state.favComics = data;
-    /*
-      Quick solution for list rerender when comics fav was toggled
-     */
-    this.comicsList = R.map((comics) => ({ ...comics, isFav: this.state.isComicsFavorite(comics.id)}), this.comicsList);
-  }
-
-  characterFavToggle(data) {
-    this.state.favCharacters = data;
   }
 
   comicsDetailsClosed() {
@@ -175,7 +187,7 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit() {
     this.filter.value.valueChanges.subscribe((value) => {
-      this.getComicsList(R.reject(R.isEmpty, value));
+      this.prepareComicsList(R.reject(R.isEmpty, value));
     });
   }
 }

@@ -1,45 +1,49 @@
-<app-comics-details
-  *ngIf="comicsDetails"
-  [comics]="comicsDetails"
-  (viewClosed)="comicsDetailsClosed()"
-  (characterPicked)="characterDetailsView($event)"
-  (favToggled)="comicsFavToggle($event)"
-></app-comics-details>
+<div *ngIf="loader.isLoading">
+    <md-spinner></md-spinner>
+</div>
 
-<app-character-details
-  *ngIf="characterDetails"
-  [character]="characterDetails"
-  (viewClosed)="characterDetailsClosed()"
-  (comicsPicked)="comicsDetailsView($event)"
-  (favToggled)="characterFavToggle($event)"
-></app-character-details>
+<div *ngIf="!loader.isLoading" class="main-page-wrapper">
+  <app-comics-details
+    *ngIf="comicsDetails"
+    [comics]="comicsDetails"
+    (viewClosed)="comicsDetailsClosed()"
+    (characterPicked)="characterDetailsView($event)"
+    (favToggled)="comicsFavToggle($event)"
+  ></app-comics-details>
 
-<div class="main-page-wrapper row">
-  <div class="col-lg-8 col-md-10 col-sm-10 col-xs-12 col-lg-offset-2 col-md-offset-1 col-sm-offset-1 col-xs-offset-0">
-    <div class="loader-container" *ngIf="isLoading">
-      <md-spinner></md-spinner>
-    </div>
+  <app-character-details
+    *ngIf="characterDetails"
+    [character]="characterDetails"
+    (viewClosed)="characterDetailsClosed()"
+    (comicsPicked)="comicsDetailsView($event)"
+    (favToggled)="characterFavToggle($event)"
+  ></app-character-details>
 
-    <div class="row comics-list-wrapper row" *ngIf="!isLoading">
-      <div class="filters col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <form [formGroup]="filter.value" novalidate>
-          <md-select placeholder="Date Descriptor" formControlName="dateDescriptor">
-            <md-option *ngFor="let option of filter.config.dateDescriptor" [value]="option.value">{{option.name}}</md-option>
-          </md-select>
-          <md-select placeholder="Format" formControlName="format">
-            <md-option *ngFor="let option of filter.config.format" [value]="option.value">{{option.name}}</md-option>
-          </md-select>
-        </form>
-      </div>
-      <div class="comics col-lg-4 col-md-6 col-sm-12 col-xs-12">
+  <div class="content col-xs-12 center">
+    <div class="col-lg-8 col-md-10 col-sm-10 col-xs-12 col-lg-offset-2 col-md-offset-1 col-sm-offset-1 col-xs-offset-0">
+
+      <div class="row comics-list-wrapper row">
+        <div class="filters col-lg-4 col-md-4 col-sm-12 col-xs-12">
+          <form [formGroup]="filter.value" novalidate>
+            <md-select placeholder="Date Descriptor" formControlName="dateDescriptor">
+              <md-option *ngFor="let option of filter.config.dateDescriptor" [value]="option.value">{{option.name}}</md-option>
+            </md-select>
+            <md-select placeholder="Format" formControlName="format">
+              <md-option *ngFor="let option of filter.config.format" [value]="option.value">{{option.name}}</md-option>
+            </md-select>
+          </form>
+        </div>
+        <div class="comics col-lg-4 col-md-6 col-sm-12 col-xs-12">
           <app-comics-list
             [list]="comicsList"
             (comicsView)="comicsDetailsView($event)"
             (favToggled)="comicsFavToggle($event)"
           ></app-comics-list>
+        </div>
       </div>
     </div>
-  </div>
 
+  </div>
 </div>
+
 

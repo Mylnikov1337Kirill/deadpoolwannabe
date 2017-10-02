@@ -2,6 +2,13 @@
   .main-page-wrapper {
     height: 100%;
     overflow-y: hidden;
+    width: 100%;
+
+    .content {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+    }
 
     .comics-list-wrapper {
       height: 100%;
@@ -18,12 +25,9 @@
           }
         }
       }
-
       .comics {
         height: 100%;
       }
     }
   }
-
-
 }

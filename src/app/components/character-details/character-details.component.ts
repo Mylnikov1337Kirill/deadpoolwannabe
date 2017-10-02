@@ -1,7 +1,6 @@
-import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { isObject } from '../../utility';
 import { Character } from './character';
-
 
 @Component({
   selector: 'app-character-details',
