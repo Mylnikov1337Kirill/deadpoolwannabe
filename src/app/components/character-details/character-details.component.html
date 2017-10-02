@@ -9,7 +9,7 @@
     </h3>
     <p>{{character.description}}</p>
   </div>
-  <div class="participated-comics-wrapper col-lg-8 col-md-8 col-sm-12 col-xs-12" *ngIf="isObject(character.comics)">
+  <div class="participated-comics col-lg-8 col-md-8 col-sm-12 col-xs-12" *ngIf="isObject(character.comics)">
     <h3 class="col-xs-12">Participated Comics</h3>
     <md-list>
       <md-list-item *ngFor="let comics of character.comics">

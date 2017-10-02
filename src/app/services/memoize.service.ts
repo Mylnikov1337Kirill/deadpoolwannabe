@@ -10,9 +10,8 @@ export class MemoizeService {
 
   private prepareValue(cache, id) {
     //add remove from cache
-    return !R.isNil(cache) && this.isCacheActual(R.path([id, 'ts'], cache))
-      ? cache
-      : cache;
+    const decision = !R.isNil(cache) && this.isCacheActual(R.path([id, 'ts'], cache));
+    return decision ? undefined : cache;
   }
 
   private isCacheActual(ts) {
@@ -20,7 +19,7 @@ export class MemoizeService {
   }
 
   public cacheCharacter(character) {
-    const prepared = R.omit(['isFav'], {...character, ts: new Date().getTime()});
+    const prepared = R.omit(['isFav'], {[character.id]: {...character, ts: new Date().getTime()}});
     this.state.cachedCharacters = prepared;
   }
 
@@ -30,12 +29,14 @@ export class MemoizeService {
   }
 
   public cacheComics(comics) {
-    const prepared = R.omit(['isFav'], {...comics, ts: new Date().getTime()});
+    const prepared = R.omit(['isFav'], {[comics.id]: {...comics, ts: new Date().getTime()}});
+    console.log('Caching...', prepared);
     this.state.cachedComics = prepared;
   }
 
   public receiveCachedComics(id) {
     const cache = this.state.getCachedComics(id);
+    console.log('Uncached...', cache);
     return this.prepareValue(cache, id);
   }
 

@@ -12,7 +12,19 @@ html, body {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
+
+  .character-list, .participated-comics {
+    .mat-list-item-content {
+      height: 20px !important;
+      padding: 0 1rem !important;
+
+      a {
+        color: $main-color;
+      }
+    }
+  }
 }
+
 body {
   margin: 0;
   padding: 0;

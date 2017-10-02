@@ -8,9 +8,10 @@ import 'rxjs/add/operator/share';
 
 import {Http} from '@angular/http';
 import {Injectable} from '@angular/core';
+import { environment } from '../../environments/environment';
 
-const PUBLIC_KEY = '9efd108f61c628af9273f7e6611a7777',
-  API_BASE = 'https://gateway.marvel.com:443/v1/public',
+const PUBLIC_KEY = environment.publicKey,
+  API_BASE = environment.apiUrl,
 
   prepare = response => ({
     ...response,

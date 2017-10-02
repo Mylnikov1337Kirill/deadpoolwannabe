@@ -16,16 +16,9 @@ export class StateService {
     cachedCharacters: {}
   };
 
-  private initFavList(name, list): void {
+  private fillStateList(name, list): void {
     if (!R.isNil(list)) {
-      R.forEachObjIndexed((it) => this[name] = it, list);
-    }
-  }
-
-  private initCachedList(name, list): void {
-    if (!R.isNil(list)) {
-      console.log(list);
-      R.forEachObjIndexed((it) => this[name] = it, list);
+      R.forEachObjIndexed((it) => this[name] = {[it.id]: it}, list);
     }
   }
 
@@ -52,16 +45,12 @@ export class StateService {
   }
 
   set cachedCharacters(data) {
-    const id = prepare_id(data);
-
-    this.state.cachedCharacters = { ...this.cachedCharacters, ...{[id]: data} };
+    this.state.cachedCharacters = { ...this.cachedCharacters, ...data };
     LocalStorageService.setItem(LS_CACHED_CHARACTERS_LIST, this.cachedCharacters);
   }
 
   set cachedComics(data) {
-    const id = prepare_id(data);
-
-    this.state.cachedComics = { ...this.cachedComics, ...{[id]: data} };
+    this.state.cachedComics = { ...this.cachedComics, ...data };
     LocalStorageService.setItem(LS_CACHED_COMICS_LIST, this.cachedComics);
   }
 
@@ -98,19 +87,18 @@ export class StateService {
   }
 
   initComicsFavList(list): void {
-    this.initFavList('favComics', list);
+    this.fillStateList('favComics', list);
   }
 
   initCharactersFavList(list): void {
-    this.initFavList('favCharacters', list);
+    this.fillStateList('favCharacters', list);
   }
 
   initComicsCachedList(list): void {
-    return this.initCachedList('cachedComics', list);
+    this.fillStateList('cachedComics', list);
   }
 
   initCharactersCachedList(list): void {
-    return this.initCachedList('cachedCharacters', list);
+    this.fillStateList('cachedCharacters', list);
   }
-
 }
