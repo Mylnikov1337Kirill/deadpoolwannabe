@@ -65,60 +65,63 @@ export class MainPageComponent implements OnInit {
   }
 
   comicsDetailsView(id) {
-    // ADD MEMOIZE
     this.characterDetails = null;
     this.comicsDetails = null;
     this.isLoading = true;
-    this.api.comics.item(id).subscribe((comics) => {
-      if (comics) {
-        this.comicsDetails =
-          R.pipe(
-            R.path(['data', 'results']),
-            R.map(
-              ({ id, title, thumbnail, description, characters, format, images, pageCount }) =>
-                ({
-                  id,
-                  title,
-                  thumbnail: parseImageURL(thumbnail),
-                  description: description
-                    ? description
-                    : NO_DATA_PROVIDED,
-                  characters: R.isEmpty(R.path(['items'], characters))
-                    ? NO_DATA_PROVIDED
-                    : characters.items,
-                  format: format
-                    ? format
-                    : NO_DATA_PROVIDED,
-                  /*
-                    Should i omit image which is copying thumbnail :thinking-face:
-                   */
-                  images: R.isEmpty(images)
-                    ? NO_DATA_PROVIDED
-                    : R.map((image) => parseImageURL(image), images),
-                  pageCount: pageCount
-                    ? pageCount
-                    : NO_DATA_PROVIDED,
-                  isFav: this.state.isComicsFavorite(id)
-                })
-            ),
-            R.path(['0'])
-          )(comics);
-            this.memoize.cacheComics(this.comicsDetails);
-            this.isLoading = false;
-      }
-    });
+
+    const cached = this.memoize.receiveCachedComics(id);
+
+    if (cached) {
+      this.comicsDetails = { ...cached, isFav: this.state.isComicsFavorite(id) };
+      this.isLoading = false;
+    } else {
+      this.api.comics.item(id).subscribe((comics) => {
+        if (comics) {
+          this.comicsDetails =
+            R.pipe(
+              R.path(['data', 'results']),
+              R.map(
+                ({ id, title, thumbnail, description, characters, format, images, pageCount }) =>
+                  ({
+                    id,
+                    title,
+                    thumbnail: parseImageURL(thumbnail),
+                    description: description
+                      ? description
+                      : NO_DATA_PROVIDED,
+                    characters: R.isEmpty(R.path(['items'], characters))
+                      ? NO_DATA_PROVIDED
+                      : characters.items,
+                    format: format
+                      ? format
+                      : NO_DATA_PROVIDED,
+                    /*
+                     Should i omit image which is copying thumbnail :thinking-face:
+                     */
+                    images: R.isEmpty(images)
+                      ? NO_DATA_PROVIDED
+                      : R.map((image) => parseImageURL(image), images),
+                    pageCount: pageCount
+                      ? pageCount
+                      : NO_DATA_PROVIDED,
+                    isFav: this.state.isComicsFavorite(id)
+                  })
+              ),
+              R.path(['0'])
+            )(comics);
+
+          this.memoize.cacheComics(this.comicsDetails);
+          this.isLoading = false;
+        }
+      });
+    }
   }
 
   characterDetailsView(id) {
-    /*
-      Refactor a bit
-     */
     const cached = this.memoize.receiveCachedCharacter(id);
 
-    //TODO: FIX FAV TOGGLE
     if (cached) {
       this.characterDetails = { ...cached, isFav: this.state.isCharacterFavorite(id) };
-      console.log(id, this.state.isCharacterFavorite(id), cached, this.state.favCharacters);
     } else {
       this.api.characters.item(id).subscribe((character) => {
         if (character) {
@@ -138,9 +141,6 @@ export class MainPageComponent implements OnInit {
               ),
               R.path(['0'])
             )(character);
-
-              console.log(this.characterDetails, this.state.favCharacters);
-
           this.memoize.cacheCharacter(this.characterDetails);
         }
       });

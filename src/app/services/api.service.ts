@@ -1,5 +1,3 @@
-import R from 'ramda';
-
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -38,6 +36,10 @@ class HttpRequest {
   }
 }
 
+/*
+  It's pointless to describe requests responses in this case
+  (unable to get specific list of entity fields) so methods returns Observable<any>
+ */
 @Injectable()
 export class ApiService {
 

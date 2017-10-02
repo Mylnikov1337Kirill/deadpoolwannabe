@@ -9,6 +9,7 @@ export class MemoizeService {
   constructor(@Inject(forwardRef(() => StateService)) private state: StateService) {}
 
   private prepareValue(cache, id) {
+    //add remove from cache
     return !R.isNil(cache) && this.isCacheActual(R.path([id, 'ts'], cache))
       ? cache
       : cache;
@@ -19,8 +20,8 @@ export class MemoizeService {
   }
 
   public cacheCharacter(character) {
-    const prepared = R.omit(['isFav'], {[character.id]: {...character, ts: new Date().getTime()}});
-    this.state.setCachedCharacter(prepared);
+    const prepared = R.omit(['isFav'], {...character, ts: new Date().getTime()});
+    this.state.cachedCharacters = prepared;
   }
 
   public receiveCachedCharacter(id) {
@@ -29,8 +30,8 @@ export class MemoizeService {
   }
 
   public cacheComics(comics) {
-    const prepared = R.omit(['isFav'], {[comics.id]: {...comics, ts: new Date().getTime()}});
-    this.state.setCachedComics(prepared);
+    const prepared = R.omit(['isFav'], {...comics, ts: new Date().getTime()});
+    this.state.cachedComics = prepared;
   }
 
   public receiveCachedComics(id) {
