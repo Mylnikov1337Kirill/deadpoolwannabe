@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ApiService, StateService, MemoizeService } from '../../services';
+import { BaseView } from './base';
 import { NO_DATA_PROVIDED, DATE_DESCRIPTOR_DICT, COMICS_FORMAT_DICT } from '../../utility/consts';
 import { parseImageURL } from '../../utility';
 import { Comics } from '../../components/comics-card/comics';
-import {BaseView} from "./base";
 
 import R from 'ramda';
 
@@ -23,7 +23,8 @@ export class MainPageComponent extends BaseView implements OnInit {
   public filter: any = {
     value: new FormGroup({
       dateDescriptor: new FormControl(''),
-      format: new FormControl('')
+      format: new FormControl(''),
+      offset: new FormControl(20)
     }),
     config: {
       dateDescriptor: DATE_DESCRIPTOR_DICT,
@@ -34,6 +35,10 @@ export class MainPageComponent extends BaseView implements OnInit {
   comicsFavToggle(data) {
     super.comicsFavToggle(data);
     this.comicsList = R.map((comics) => ({ ...comics, isFav: this.state.isComicsFavorite(comics.id)}), this.comicsList);
+  }
+
+  nextPage() {
+    this.filter.value.patchValue({ offset: this.filter.value.value.offset + 20 });
   }
 
   prepareComicsList(filter) {

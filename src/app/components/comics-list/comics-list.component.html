@@ -3,4 +3,7 @@
     <app-comics-card [data]="comics" (onClick)="detailsView($event)" (favToggled)="onFavToggle($event)">
     </app-comics-card>
   </div>
+  <div *ngIf="!list.length">
+    <span>No Data Found!</span>
+  </div>
 </div>

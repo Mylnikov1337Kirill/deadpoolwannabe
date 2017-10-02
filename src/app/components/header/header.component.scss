@@ -1,15 +1,41 @@
 @import '../../../assets/variables';
 
-:host {
+@mixin respond-to($size) {
+  @if $size == normal {
+    @media (max-width: 991px) {
+      @content
+    }
+  }
+}
 
+:host {
   .logo {
     font-family: $comics-font;
     font-size: 36px;
+    @include respond-to(normal) {
+      font-size: 20px;
+    }
   }
 
   nav {
+    display: flex;
+    flex-grow: 1;
+    @include respond-to(normal) {
+      justify-content: flex-end;
+    }
     a {
       font-size: 18px;
+      &:first-of-type {
+        @include respond-to(normal) {
+          display: none;
+        }
+      }
+      &:last-of-type {
+        display: none;
+        @include respond-to(normal) {
+          display: block;
+        }
+      }
     }
   }
 

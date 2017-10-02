@@ -1,9 +1,9 @@
-import {Loader} from "./loader";
-import {ComicsDetails} from "../../components/comics-details/comics-details";
-import {Character} from "../../components/character-details/character";
-import {ApiService, StateService, MemoizeService} from "../../services";
-import {NO_DATA_PROVIDED} from "../../utility/consts";
-import {parseImageURL} from "../../utility/index";
+import { Loader } from './loader';
+import { ComicsDetails } from '../../components/comics-details/comics-details';
+import { Character } from '../../components/character-details/character';
+import { ApiService, StateService, MemoizeService } from '../../services';
+import { NO_DATA_PROVIDED } from '../../utility/consts';
+import { parseImageURL } from '../../utility/index';
 
 import R from 'ramda';
 
