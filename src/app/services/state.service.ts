@@ -9,7 +9,7 @@ const prepare_data = (data) => {
   const id = prepare_id(data);
   return [id, {[id]: data}];
 };
-const obj_to_array = R.forEach((item) => item);
+const obj_to_array = (obj) =>  R.values(obj);
 
 @Injectable()
 export class StateService {
@@ -77,14 +77,14 @@ export class StateService {
 
   getCachedCharacter(id) {
     /*
-      May be replaced with .find method of getter call
+      May be replaced with .find method of getter call result
      */
     return this.state.cachedCharacters[id];
   }
 
   getCachedComics(id) {
     /*
-     May be replaced with .find method of getter call
+       May be replaced with .find method of getter call result
      */
     return this.state.cachedComics[id];
   }

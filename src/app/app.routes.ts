@@ -6,7 +6,7 @@ import { AuthService } from './services';
 import {
   NotFoundPageComponent,
   MainPageComponent,
-  FavouritesPageComponent
+  FavoritesPageComponent
 } from './pages';
 
 const ROUTES: Routes = [
@@ -25,7 +25,7 @@ const ROUTES: Routes = [
       {
         path: 'fav',
         data: { title: 'Favourites' },
-        component: FavouritesPageComponent
+        component: FavoritesPageComponent
       }
     ]
   },

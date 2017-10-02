@@ -13,7 +13,10 @@ html, body {
   height: 100%;
   overflow-x: hidden;
 
-  .character-list, .participated-comics {
+  .character-list, .participated-comics, .favorites-list-wrapper {
+    .mat-list-item {
+      cursor: pointer;
+    }
     .mat-list-item-content {
       height: 20px !important;
       padding: 0 1rem !important;

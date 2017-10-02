@@ -7,7 +7,7 @@ import { parseImageURL } from '../../utility/index';
 
 import R from 'ramda';
 
-export class BaseView {
+export class BaseListView {
 
   constructor(protected api: ApiService, protected state: StateService, protected memoize: MemoizeService) {}
 

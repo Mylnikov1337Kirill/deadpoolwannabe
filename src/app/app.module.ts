@@ -28,7 +28,7 @@ import {
 import {
   MainPageComponent,
   NotFoundPageComponent,
-  FavouritesPageComponent
+  FavoritesPageComponent
 } from './pages';
 
 import {
@@ -56,7 +56,7 @@ import 'hammerjs';
     ComicsListComponent,
     FavoriteToggleComponent,
     MainPageComponent,
-    FavouritesPageComponent,
+    FavoritesPageComponent,
     NotFoundPageComponent
   ],
   imports: [

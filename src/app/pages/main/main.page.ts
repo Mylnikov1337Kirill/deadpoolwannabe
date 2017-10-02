@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ApiService, StateService, MemoizeService } from '../../services';
-import { BaseView } from './base';
+import { BaseListView } from './list-base';
 import { NO_DATA_PROVIDED, DATE_DESCRIPTOR_DICT, COMICS_FORMAT_DICT } from '../../utility/consts';
 import { parseImageURL } from '../../utility';
 import { Comics } from '../../components/comics-card/comics';
@@ -12,7 +12,7 @@ import R from 'ramda';
   templateUrl: './main.page.html',
   styleUrls: ['./main.page.scss']
 })
-export class MainPageComponent extends BaseView implements OnInit {
+export class MainPageComponent extends BaseListView implements OnInit {
 
   constructor(protected api: ApiService, protected state: StateService, protected memoize: MemoizeService) {
     super(api, state, memoize);
