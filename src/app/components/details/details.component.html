@@ -1,12 +1,10 @@
-<div class="details-wrapper">
+<div class="details-wrapper col-xs-12">
   <div class="header">
     <button md-button (click)="closeView()">
       <md-icon>highlight_off</md-icon>
     </button>
     <h2>{{data.title}}</h2>
-    <div class="fav-indicator-container">
       <app-favorite-toggle [value]="data.isFav" (toggled)="onFavToggle()"></app-favorite-toggle>
-    </div>
   </div>
   <div class="body row">
     <div class="thumb-wrapper col-lg-4 col-md-4 col-sm-12 col-xs-12">

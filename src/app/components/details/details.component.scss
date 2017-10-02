@@ -16,11 +16,27 @@
     .header {
       display: flex;
 
+      button:first-of-type {
+        @include respond-to(normal) {
+          min-width: 60px;
+        }
+        .mat-icon {
+          @include respond-to(normal) {
+            width: 30px;
+            height: 30px;
+            font-size: 30px;
+          }
+        }
+      }
+
       h2 {
         color: $text-color;
         font-family: $comics-font;
         font-weight: normal;
         font-size: 30px;
+        @include respond-to(normal) {
+          font-size: 18px;
+        }
       }
 
       .fav-indicator-container {
@@ -40,9 +56,10 @@
     .body {
       padding: 3rem 16px;
       display: flex;
+      justify-content: center;
       height: 90%;
       overflow-y: scroll;
-      margin-right: -17px;
+      margin-right: -3rem;
 
       .thumb-wrapper img {
         width: 100%;

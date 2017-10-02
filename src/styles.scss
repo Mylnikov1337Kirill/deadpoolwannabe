@@ -18,8 +18,8 @@ html, body {
       cursor: pointer;
     }
     .mat-list-item-content {
-      height: 20px !important;
-      padding: 0 1rem !important;
+      padding: .5rem 1rem !important;
+      height: auto !important;
 
       a {
         color: $main-color;

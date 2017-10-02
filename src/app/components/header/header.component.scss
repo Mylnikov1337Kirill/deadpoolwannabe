@@ -1,13 +1,5 @@
 @import '../../../assets/variables';
 
-@mixin respond-to($size) {
-  @if $size == normal {
-    @media (max-width: 991px) {
-      @content
-    }
-  }
-}
-
 :host {
   .logo {
     font-family: $comics-font;
