@@ -5,6 +5,11 @@ import { LS_FAV_COMICS_LIST, LS_FAV_CHARACTERS_LIST, LS_CACHED_CHARACTERS_LIST, 
 import R from 'ramda';
 
 const prepare_id = (data) => R.toString(R.path(['id'], data));
+const prepare_data = (data) => {
+  const id = prepare_id(data);
+  return [id, {[id]: data}];
+};
+const obj_to_array = R.forEach((item) => item);
 
 @Injectable()
 export class StateService {
@@ -18,7 +23,7 @@ export class StateService {
 
   private fillStateList(name, list): void {
     if (!R.isNil(list)) {
-      R.forEachObjIndexed((it) => this[name] = {[it.id]: it}, list);
+      R.forEachObjIndexed((it) => this[name] = it, list);
     }
   }
 
@@ -27,54 +32,60 @@ export class StateService {
   }
 
   set favComics(data) {
-    const id = prepare_id(data);
-
+    const [id, prepared] = prepare_data(data);
     this.isComicsFavorite(id)
       ? this.state.favComics = R.omit([id], this.state.favComics)
-      : this.state.favComics = { ...this.state.favComics, ...{[id]: data} };
+      : this.state.favComics = { ...this.state.favComics, ...prepared };
     LocalStorageService.setItem(LS_FAV_COMICS_LIST, this.favComics);
   }
 
   set favCharacters(data) {
-    const id = prepare_id(data);
-
+    const [id, prepared] = prepare_data(data);
     this.isCharacterFavorite(id)
       ? this.state.favCharacters = R.omit([id], this.state.favCharacters)
-      : this.state.favCharacters = { ...this.state.favCharacters, ...{[id]: data} };
+      : this.state.favCharacters = { ...this.state.favCharacters, ...prepared };
     LocalStorageService.setItem(LS_FAV_CHARACTERS_LIST, this.favCharacters);
   }
 
   set cachedCharacters(data) {
-    this.state.cachedCharacters = { ...this.cachedCharacters, ...data };
+    const [, prepared] = prepare_data(data);
+    this.state.cachedCharacters = { ...this.cachedCharacters, ...prepared };
     LocalStorageService.setItem(LS_CACHED_CHARACTERS_LIST, this.cachedCharacters);
   }
 
   set cachedComics(data) {
-    this.state.cachedComics = { ...this.cachedComics, ...data };
+    const [, prepared] = prepare_data(data);
+    this.state.cachedComics = { ...this.cachedComics, ...prepared };
     LocalStorageService.setItem(LS_CACHED_COMICS_LIST, this.cachedComics);
   }
 
   get cachedCharacters() {
-    return this.state.cachedCharacters;
+    return obj_to_array(this.state.cachedCharacters);
   }
 
   get cachedComics() {
-    return this.state.cachedComics;
+    return obj_to_array(this.state.cachedComics);
   }
 
   get favComics() {
-    return this.state.favComics;
+    return obj_to_array(this.state.favComics);
   }
 
   get favCharacters() {
-    return this.state.favCharacters;
+    return obj_to_array(this.state.favCharacters);
   }
 
   getCachedCharacter(id) {
-    return this.cachedCharacters[id];
+    /*
+      May be replaced with .find method of getter call
+     */
+    return this.state.cachedCharacters[id];
   }
 
   getCachedComics(id) {
+    /*
+     May be replaced with .find method of getter call
+     */
     return this.state.cachedComics[id];
   }
 

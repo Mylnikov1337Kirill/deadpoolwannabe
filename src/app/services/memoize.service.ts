@@ -9,7 +9,7 @@ export class MemoizeService {
   constructor(@Inject(forwardRef(() => StateService)) private state: StateService) {}
 
   private prepareValue(cache, id) {
-    //add remove from cache
+    // TODO: remove from cache if isn't actual
     const decision = !R.isNil(cache) && this.isCacheActual(R.path([id, 'ts'], cache));
     return decision ? undefined : cache;
   }
@@ -19,17 +19,19 @@ export class MemoizeService {
   }
 
   public cacheCharacter(character) {
-    const prepared = R.omit(['isFav'], {[character.id]: {...character, ts: new Date().getTime()}});
+    const prepared = R.omit(['isFav'], {...character, ts: new Date().getTime()});
+    console.log('Caching...', prepared);
     this.state.cachedCharacters = prepared;
   }
 
   public receiveCachedCharacter(id) {
     const cache = this.state.getCachedCharacter(id);
+    console.log('Uncached...', cache);
     return this.prepareValue(cache, id);
   }
 
   public cacheComics(comics) {
-    const prepared = R.omit(['isFav'], {[comics.id]: {...comics, ts: new Date().getTime()}});
+    const prepared = R.omit(['isFav'], {...comics, ts: new Date().getTime()});
     console.log('Caching...', prepared);
     this.state.cachedComics = prepared;
   }
