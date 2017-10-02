@@ -28,6 +28,9 @@
             <md-list-item *ngFor="let character of charactersList">
               <a (click)="characterDetailsView(character.id)">{{character.name}}</a>
             </md-list-item>
+            <md-list-item *ngIf="!charactersList.length">
+              List is empty!
+            </md-list-item>
           </md-list>
         </div>
         <div class="comics col-md-4 col-xs-12">
@@ -35,6 +38,9 @@
           <md-list>
             <md-list-item *ngFor="let comics of comicsList">
               <a (click)="comicsDetailsView(comics.id)">{{comics.name}}</a>
+            </md-list-item>
+            <md-list-item *ngIf="!comicsList.length">
+              List is empty!
             </md-list-item>
           </md-list>
         </div>

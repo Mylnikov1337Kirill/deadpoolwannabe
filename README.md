@@ -1,6 +1,6 @@
 # ComiX Zone
 
-Project is completed *Ha-Ha* as fast as possible. 
+So, 3 days marathon came to an end and ```project``` iteration is completed *Ha-Ha*. 
 There are still enough of edgy moments, lack of functional variety, low-budget design and so on, but i got ~~4-hour sleep~~ fun by 'playing' this (;
 
 ## Small Summary
