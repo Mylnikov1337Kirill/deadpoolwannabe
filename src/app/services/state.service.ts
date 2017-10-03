@@ -3,24 +3,31 @@ import { LocalStorageService } from './storage.service';
 import { LS_FAV_COMICS_LIST, LS_FAV_CHARACTERS_LIST, LS_CACHED_CHARACTERS_LIST, LS_CACHED_COMICS_LIST } from '../utility/consts';
 
 import R from 'ramda';
+import {BehaviorSubject} from "rxjs";
 
 const prepare_id = (data) => R.toString(R.path(['id'], data));
 const prepare_data = (data) => {
   const id = prepare_id(data);
   return [id, {[id]: data}];
 };
-const obj_to_array = (obj) =>  R.values(obj);
 
 @Injectable()
 export class StateService {
 
   private state = {
-    // May be improved with turning into RxJS BehaviorSubject to provide subscription feature
-    favComics: {},
-    favCharacters: {},
-    cachedComics: {},
-    cachedCharacters: {}
+    favComics$: new BehaviorSubject(false),
+    favCharacters$: new BehaviorSubject(false),
+    cachedComics$: new BehaviorSubject(false),
+    cachedCharacters$: new BehaviorSubject(false)
   };
+
+  get favComics$() {
+    return this.state.favComics$;
+  }
+
+  get favCharacters$() {
+    return this.state.favCharacters$;
+  }
 
   private fillStateList(name, list): void {
     if (!R.isNil(list)) {
@@ -29,65 +36,59 @@ export class StateService {
   }
 
   private isFavorite(list, id): boolean {
-    return R.has(id, this.state[list]);
+    return R.has(id, this[list]);
   }
 
   set favComics(data) {
     const [id, prepared] = prepare_data(data);
     this.isComicsFavorite(id)
-      ? this.state.favComics = R.omit([id], this.state.favComics)
-      : this.state.favComics = { ...this.state.favComics, ...prepared };
+      ? this.state.favComics$.next(R.omit([id], this.state.favComics$.getValue()))
+      : this.state.favComics$.next({ ...this.favComics, ...prepared});
     LocalStorageService.setItem(LS_FAV_COMICS_LIST, this.favComics);
   }
 
   set favCharacters(data) {
     const [id, prepared] = prepare_data(data);
     this.isCharacterFavorite(id)
-      ? this.state.favCharacters = R.omit([id], this.state.favCharacters)
-      : this.state.favCharacters = { ...this.state.favCharacters, ...prepared };
+      ? this.state.favCharacters$.next(R.omit([id], this.state.favCharacters$.getValue()))
+      : this.state.favCharacters$.next({ ...this.favCharacters, ...prepared });
     LocalStorageService.setItem(LS_FAV_CHARACTERS_LIST, this.favCharacters);
   }
 
   set cachedCharacters(data) {
     const [, prepared] = prepare_data(data);
-    this.state.cachedCharacters = { ...this.cachedCharacters, ...prepared };
+    this.state.cachedCharacters$.next({ ...this.cachedCharacters, ...prepared });
     LocalStorageService.setItem(LS_CACHED_CHARACTERS_LIST, this.cachedCharacters);
   }
 
   set cachedComics(data) {
     const [, prepared] = prepare_data(data);
-    this.state.cachedComics = { ...this.cachedComics, ...prepared };
+    this.state.cachedComics$.next({ ...this.cachedComics, ...prepared });
     LocalStorageService.setItem(LS_CACHED_COMICS_LIST, this.cachedComics);
   }
 
-  get cachedCharacters() {
-    return obj_to_array(this.state.cachedCharacters);
+  get cachedCharacters(): Object {
+    return this.state.cachedCharacters$.getValue();
   }
 
-  get cachedComics() {
-    return obj_to_array(this.state.cachedComics);
+  get cachedComics(): Object {
+    return this.state.cachedComics$.getValue();
   }
 
-  get favComics() {
-    return obj_to_array(this.state.favComics);
+  get favComics(): Object {
+    return this.state.favComics$.getValue();
   }
 
-  get favCharacters() {
-    return obj_to_array(this.state.favCharacters);
+  get favCharacters(): Object {
+    return this.state.favCharacters$.getValue();
   }
 
   getCachedCharacter(id) {
-    /*
-      May be replaced with .find method of getter call result
-     */
-    return this.state.cachedCharacters[id];
+    return this.cachedCharacters[id];
   }
 
   getCachedComics(id) {
-    /*
-       May be replaced with .find method of getter call result
-     */
-    return this.state.cachedComics[id];
+    return this.cachedComics[id];
   }
 
   isCharacterFavorite(id): boolean {

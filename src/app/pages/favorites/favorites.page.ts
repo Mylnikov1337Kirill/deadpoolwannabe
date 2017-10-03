@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BaseListView } from '../main/list-base';
 import { ApiService, StateService, MemoizeService } from '../../services';
-import { FavoritesListItem } from './favorites-list-item';
+import R from 'ramda';
 
 @Component({
   templateUrl: './favorites.page.html',
@@ -11,20 +11,18 @@ export class FavoritesPageComponent extends BaseListView {
 
   constructor(protected api: ApiService, protected state: StateService, protected memoize: MemoizeService) {
     super(api, state, memoize);
-    this.comicsList = this.state.favComics;
-    this.charactersList = this.state.favCharacters;
+    this.state.favComics$.subscribe((list) => { if (list) this.comicsList = R.values(list); });
+    this.state.favCharacters$.subscribe((list) => { if (list) this.charactersList = R.values(list); });
   }
 
-  public comicsList: FavoritesListItem[];
-  public charactersList: FavoritesListItem[];
+  public comicsList;
+  public charactersList;
 
   comicsFavToggle(data) {
     super.comicsFavToggle(data);
-    this.comicsList = this.state.favComics;
   }
 
   characterFavToggle(data) {
     super.characterFavToggle(data);
-    this.charactersList = this.state.favCharacters;
   }
 }
