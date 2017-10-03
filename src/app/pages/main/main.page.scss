@@ -1,3 +1,5 @@
+@import '../../../assets/variables';
+
 :host {
   .main-page-wrapper {
     height: 100%;
@@ -13,9 +15,24 @@
     .comics-list-wrapper {
       height: 100%;
 
-      .filters form {
-        display: flex;
-        flex-direction: column;
+      .filters {
+        form {
+          display: flex;
+          flex-direction: column;
+
+          &.medium-screen {
+            @include respond-to(normal) {
+              display: none;
+            }
+          }
+        }
+
+        .mat-expansion-panel {
+          display: none;
+          @include respond-to(normal) {
+            display: block;
+          }
+        }
 
         .mat-select {
           margin-top: 1rem;

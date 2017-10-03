@@ -24,7 +24,22 @@
 
       <div class="row comics-list-wrapper row">
         <div class="filters col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          <form [formGroup]="filter.value" novalidate>
+          <md-expansion-panel>
+            <md-expansion-panel-header>
+              Filters
+            </md-expansion-panel-header>
+            <form [formGroup]="filter.value" novalidate>
+              <md-select placeholder="Date Descriptor" formControlName="dateDescriptor">
+                <md-option *ngFor="let option of filter.config.dateDescriptor" [value]="option.value">{{option.name}}</md-option>
+              </md-select>
+              <md-select placeholder="Format" formControlName="format">
+                <md-option *ngFor="let option of filter.config.format" [value]="option.value">{{option.name}}</md-option>
+              </md-select>
+              <button type="button" md-button (click)="nextPage()">Next Page</button>
+            </form>
+          </md-expansion-panel>
+
+          <form [formGroup]="filter.value" novalidate class="medium-screen">
             <md-select placeholder="Date Descriptor" formControlName="dateDescriptor">
               <md-option *ngFor="let option of filter.config.dateDescriptor" [value]="option.value">{{option.name}}</md-option>
             </md-select>

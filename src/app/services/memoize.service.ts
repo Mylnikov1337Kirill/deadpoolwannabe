@@ -20,25 +20,21 @@ export class MemoizeService {
 
   public cacheCharacter(character) {
     const prepared = R.omit(['isFav'], {...character, ts: new Date().getTime()});
-    console.log('Caching...', prepared);
     this.state.cachedCharacters = prepared;
   }
 
   public receiveCachedCharacter(id) {
     const cache = this.state.getCachedCharacter(id);
-    console.log('Uncached...', cache);
     return this.prepareValue(cache, id);
   }
 
   public cacheComics(comics) {
     const prepared = R.omit(['isFav'], {...comics, ts: new Date().getTime()});
-    console.log('Caching...', prepared);
     this.state.cachedComics = prepared;
   }
 
   public receiveCachedComics(id) {
     const cache = this.state.getCachedComics(id);
-    console.log('Uncached...', cache);
     return this.prepareValue(cache, id);
   }
 

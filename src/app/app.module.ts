@@ -11,7 +11,8 @@ import {
   MatCardModule,
   MatInputModule,
   MatProgressSpinnerModule,
-  MatListModule
+  MatListModule,
+  MatExpansionModule
 } from '@angular/material';
 
 import {
@@ -72,6 +73,7 @@ import 'hammerjs';
     MatProgressSpinnerModule,
     MatCardModule,
     MatListModule,
+    MatExpansionModule,
     FormsModule,
     ReactiveFormsModule
   ],
