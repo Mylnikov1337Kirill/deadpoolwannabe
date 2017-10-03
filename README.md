@@ -1,6 +1,6 @@
 # ComiX Zone
 
-So, 3 days marathon came to an end and ```project``` iteration is completed *Ha-Ha*. 
+So, 3 days marathon came to an end and ```project's``` iteration is completed *Ha-Ha*. 
 There are still enough of edgy moments, lack of functional variety, low-budget design and so on, but i got ~~4-hour sleep~~ fun by 'playing' this (;
 
 ## Small Summary
@@ -13,7 +13,7 @@ There are still enough of edgy moments, lack of functional variety, low-budget d
 - app can be used on devices with various resolutions (at the very least to be honest (; );
 - app helpfully informs lost user about situation;
 - app is kinda runtime-safe because of [Ramda](http://ramdajs.com/) functions;
-- app brings back OLD GOOD DAYS with Marvel <3. 
+- app brings back *old good days* with Marvel <3. 
 
 ## Development Instruction
 
