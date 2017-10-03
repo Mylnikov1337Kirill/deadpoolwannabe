@@ -1,12 +1,12 @@
 # ComiX Zone
 
 So, 3 days marathon came to an end and ```project's``` iteration is completed *Ha-Ha*. 
-There are still enough of edgy moments, lack of functional variety and test, low-budget design and so on, but i got ~~4-hour sleep~~ fun by 'playing' this (;
+There are still enough of edgy moments, lack of functional variety and tests, low-budget design and so on, but i got ~~4-hour sleep~~ fun by 'playing' this (;
 
 ## Small Summary
 
 - app calls [Marvel API](https://developer.marvel.com/);
-- app shows list of comics with possibility of filtering;
+- app shows comics list with possibility of filtering;
 - app provides access to comics & character details;
 - app allows user to mark any comics & character as favorite with further possibility of browsing fav-lists;
 - app caches some of API responses;
@@ -20,7 +20,7 @@ There are still enough of edgy moments, lack of functional variety and test, low
 0. clone project;
 1. npm ```i```;
 2. ```ng serve```;
-3. navigate to localhost:4200 & chill ;P
+3. navigate to ```localhost:4200``` & chill ;P
 
 ## Live Demo (Published by [Surge](http://surge.sh/))
 
