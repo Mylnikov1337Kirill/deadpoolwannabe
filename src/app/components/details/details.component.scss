@@ -59,12 +59,17 @@
       justify-content: center;
       height: 90%;
       overflow-y: scroll;
-      margin-right: -3rem;
+      margin-right: calc(-1rem - 17px);
 
-      .thumb-wrapper img {
-        width: 100%;
-        height: auto;
+      .content-wrapper {
+        justify-content: center;
+
       }
+    }
+
+    .thumb-wrapper img {
+      width: 100%;
+      height: auto;
     }
   }
 }
