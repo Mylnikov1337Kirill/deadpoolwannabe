@@ -15,6 +15,7 @@ const obj_to_array = (obj) =>  R.values(obj);
 export class StateService {
 
   private state = {
+    // May be improved with turning into RxJS BehaviorSubject to provide subscription feature
     favComics: {},
     favCharacters: {},
     cachedComics: {},

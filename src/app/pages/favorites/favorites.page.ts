@@ -17,4 +17,14 @@ export class FavoritesPageComponent extends BaseListView {
 
   public comicsList: FavoritesListItem[];
   public charactersList: FavoritesListItem[];
+
+  comicsFavToggle(data) {
+    super.comicsFavToggle(data);
+    this.comicsList = this.state.favComics;
+  }
+
+  characterFavToggle(data) {
+    super.characterFavToggle(data);
+    this.charactersList = this.state.favCharacters;
+  }
 }
