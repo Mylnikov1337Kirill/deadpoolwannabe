@@ -63,7 +63,9 @@
 
       .content-wrapper {
         justify-content: center;
-
+        @include respond-to(normal) {
+          padding-bottom: 1rem;
+        }
       }
     }
 
