@@ -34,7 +34,6 @@ export class MainPageComponent extends BaseListView implements OnInit {
 
   comicsFavToggle(data) {
     super.comicsFavToggle(data);
-    this.comicsList = R.map((comics) => ({ ...comics, isFav: this.state.isComicsFavorite(comics.id)}), this.comicsList);
   }
 
   nextPage() {
@@ -49,7 +48,8 @@ export class MainPageComponent extends BaseListView implements OnInit {
             R.pipe(
               R.pick(['id', 'title', 'thumbnail', 'description']),
               ({id, title, thumbnail, description}): Comics =>
-                ({id,
+                ({
+                  id,
                   title,
                   isFav: this.state.isComicsFavorite(id),
                   description: description ? R.concat(description.substr(0, 150), ' ...') : NO_DATA_PROVIDED,
@@ -57,7 +57,12 @@ export class MainPageComponent extends BaseListView implements OnInit {
                 })
             )(it),
           R.path(['data', 'results'], list));
-
+        this.state.favComics$.subscribe((list) => {
+          if (list) {
+            this.comicsList = R.map((comics) =>
+              ({...comics, isFav: this.state.isComicsFavorite(comics.id)}), this.comicsList)
+          }
+        });
         this.loader.hide();
       }
     });
