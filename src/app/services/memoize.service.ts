@@ -10,8 +10,8 @@ export class MemoizeService {
 
   private prepareValue(cache, id) {
     // TODO: remove from cache if isn't actual
-    const decision = !R.isNil(cache) && this.isCacheActual(R.path([id, 'ts'], cache));
-    return decision ? undefined : cache;
+    const decision = !R.isNil(cache) && this.isCacheActual(R.path(['ts'], cache));
+    return decision ? cache : undefined;
   }
 
   private isCacheActual(ts) {
