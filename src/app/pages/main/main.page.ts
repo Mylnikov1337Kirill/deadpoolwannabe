@@ -32,10 +32,6 @@ export class MainPageComponent extends BaseListView implements OnInit {
     }
   };
 
-  comicsFavToggle(data) {
-    super.comicsFavToggle(data);
-  }
-
   nextPage() {
     this.filter.value.patchValue({ offset: this.filter.value.value.offset + 20 });
   }
@@ -57,10 +53,11 @@ export class MainPageComponent extends BaseListView implements OnInit {
                 })
             )(it),
           R.path(['data', 'results'], list));
+
         this.state.favComics$.subscribe((list) => {
           if (list) {
             this.comicsList = R.map((comics) =>
-              ({...comics, isFav: this.state.isComicsFavorite(comics.id)}), this.comicsList)
+              ({...comics, isFav: this.state.isComicsFavorite(comics.id)}), this.comicsList);
           }
         });
         this.loader.hide();
