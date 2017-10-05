@@ -4,7 +4,7 @@
       <md-icon>highlight_off</md-icon>
     </button>
     <h2>{{data.title}}</h2>
-      <app-favorite-toggle [value]="data.isFav" (toggled)="onFavToggle()"></app-favorite-toggle>
+      <app-favorite-toggle class="details-favorite" [value]="data.isFav" (toggled)="onFavToggle()"></app-favorite-toggle>
   </div>
   <div class="body row">
     <div class="thumb-wrapper col-lg-4 col-md-4 col-sm-12 col-xs-12">

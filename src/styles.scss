@@ -13,26 +13,8 @@ html, body {
   height: 100%;
   overflow-x: hidden;
 
-  //Temp solution remove it later
-  .details-wrapper {
-    .comics-fav-indicator {
-      height: 100%;
-      display: flex;
-
-      @include respond-to(normal) {
-        min-width: 60px;
-      }
-      .mat-icon {
-        @include respond-to(normal) {
-          width: 30px;
-          height: 30px;
-          font-size: 30px;
-        }
-      }
-    }
-    .mat-button-wrapper {
-      width: 100%;
-    }
+  .mat-button-wrapper {
+    width: 100%;
   }
 
   .character-list, .participated-comics, .favorites-list-wrapper {

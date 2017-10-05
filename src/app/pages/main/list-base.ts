@@ -9,7 +9,7 @@ import R from 'ramda';
 
 export class BaseListView {
 
-  constructor(protected api: ApiService, protected state: StateService, protected memoize: MemoizeService) {}
+  constructor(protected api: ApiService, protected state: StateService, protected memoize: MemoizeService) { }
 
   public loader: Loader = new Loader();
   public comicsDetails: ComicsDetails;

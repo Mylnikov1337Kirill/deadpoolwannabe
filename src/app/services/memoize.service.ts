@@ -8,7 +8,7 @@ export class MemoizeService {
 
   constructor(@Inject(forwardRef(() => StateService)) private state: StateService) {}
 
-  private prepareValue(cache, id) {
+  private prepareValue(cache) {
     // TODO: remove from cache if isn't actual
     const decision = !R.isNil(cache) && this.isCacheActual(R.path(['ts'], cache));
     return decision ? cache : undefined;
@@ -25,7 +25,7 @@ export class MemoizeService {
 
   public receiveCachedCharacter(id) {
     const cache = this.state.getCachedCharacter(id);
-    return this.prepareValue(cache, id);
+    return this.prepareValue(cache);
   }
 
   public cacheComics(comics) {
@@ -35,7 +35,7 @@ export class MemoizeService {
 
   public receiveCachedComics(id) {
     const cache = this.state.getCachedComics(id);
-    return this.prepareValue(cache, id);
+    return this.prepareValue(cache);
   }
 
 }

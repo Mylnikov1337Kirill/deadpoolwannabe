@@ -24,7 +24,7 @@ const ROUTES: Routes = [
       },
       {
         path: 'fav',
-        data: { title: 'Favourites' },
+        data: { title: 'Favorites' },
         component: FavoritesPageComponent
       }
     ]
