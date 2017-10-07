@@ -52,37 +52,33 @@ export class BaseListView {
       if (comics) {
         this.comicsDetails =
           R.pipe(
-            R.path(['data', 'results']),
-            R.map(
-              ({ id, title, thumbnail, description, characters, format, images, pageCount }) =>
-                ({
-                  id,
-                  title,
-                  thumbnail: parseImageURL(thumbnail),
-                  description: description
-                    ? description
-                    : NO_DATA_PROVIDED,
-                  characters: R.isEmpty(R.path(['items'], characters))
-                    ? NO_DATA_PROVIDED
-                    : characters.items,
-                  format: format
-                    ? format
-                    : NO_DATA_PROVIDED,
-                  /*
-                   Should i omit image which is copying thumbnail :thinking-face:
-                   */
-                  images: R.isEmpty(images)
-                    ? NO_DATA_PROVIDED
-                    : R.map((image) => parseImageURL(image), images),
-                  pageCount: pageCount
-                    ? pageCount
-                    : NO_DATA_PROVIDED,
-                  isFav: this.state.isComicsFavorite(id)
-                })
-            ),
-            R.path(['0'])
+            R.path(['data', 'results', '0']),
+            ({id, title, thumbnail, description, characters, format, images, pageCount}) =>
+              ({
+                id,
+                title,
+                thumbnail: parseImageURL(thumbnail),
+                description: description
+                  ? description
+                  : NO_DATA_PROVIDED,
+                characters: R.isEmpty(R.path(['items'], characters))
+                  ? NO_DATA_PROVIDED
+                  : characters.items,
+                format: format
+                  ? format
+                  : NO_DATA_PROVIDED,
+                /*
+                 Should i omit image which is copying thumbnail :thinking-face:
+                 */
+                images: R.isEmpty(images)
+                  ? NO_DATA_PROVIDED
+                  : R.map((image) => parseImageURL(image), images),
+                pageCount: pageCount
+                  ? pageCount
+                  : NO_DATA_PROVIDED,
+                isFav: this.state.isComicsFavorite(id)
+              })
           )(comics);
-
         this.memoize.cacheComics(this.comicsDetails);
         this.loader.hide();
       }
@@ -95,19 +91,16 @@ export class BaseListView {
       if (character) {
         this.characterDetails =
           R.pipe(
-            R.path(['data', 'results']),
-            R.map(
-              ({id, comics, name, thumbnail, description}) =>
-                ({
-                  id,
-                  comics: R.path(['items'], comics),
-                  name,
-                  thumbnail: parseImageURL(thumbnail),
-                  description: description ? description : NO_DATA_PROVIDED,
-                  isFav: this.state.isCharacterFavorite(id)
-                })
-            ),
-            R.path(['0'])
+            R.path(['data', 'results', '0']),
+            ({id, comics, name, thumbnail, description}) =>
+              ({
+                id,
+                comics: R.path(['items'], comics),
+                name,
+                thumbnail: parseImageURL(thumbnail),
+                description: description ? description : NO_DATA_PROVIDED,
+                isFav: this.state.isCharacterFavorite(id)
+              })
           )(character);
 
         this.memoize.cacheCharacter(this.characterDetails);
